@@ -14,7 +14,7 @@ const navItems = [
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { currentUser, logout, matches, getMatches } = useApp();
+  const { currentUser, logout, getMatches } = useApp();
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window !== 'undefined') {
       return window.innerWidth < 768;
@@ -43,57 +43,65 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="page-container">
-      {!isMobile && (
-        <nav className="nav-bar" style={{ position: 'fixed', left: 0, top: 0, bottom: 0, width: '240px', flexDirection: 'column', justifyContent: 'flex-start', padding: '24px 16px', backgroundColor: 'white' }}>
-          <div style={{ marginBottom: '32px', textAlign: 'center' }}>
-            <h2 style={{ color: 'var(--primary)', fontSize: '24px' }}>💛 Naastje</h2>
-          </div>
-          
-          {navItems.map(item => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`nav-item ${pathname === item.href ? 'active' : ''}`}
-              style={{ flexDirection: 'row', gap: '12px', justifyContent: 'flex-start' }}
-            >
-              <span style={{ fontSize: '20px' }}>{item.icon}</span>
-              {item.label}
-            </Link>
-          ))}
-
-          <div style={{ marginTop: 'auto', paddingTop: '24px', borderTop: '1px solid #e5e7eb' }}>
-            <button onClick={logout} className="btn-ghost" style={{ width: '100%', justifyContent: 'flex-start' }}>
-              🚪 Uitloggen
-            </button>
-          </div>
-        </nav>
-      )}
-
-      <main className="main-content" style={{ paddingLeft: isMobile ? 0 : '240px' }}>
+      <main className="main-content">
         {children}
       </main>
 
-      {isMobile && (
-        <nav className="nav-bar">
-          {navItems.map(item => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`nav-item ${pathname === item.href ? 'active' : ''}`}
-            >
-              <span style={{ fontSize: '20px', position: 'relative' }}>
-                {item.icon}
-                {item.href === '/app/matches' && unreadCount > 0 && (
-                  <span style={{ position: 'absolute', top: '-4px', right: '-8px', backgroundColor: 'var(--error)', color: 'white', borderRadius: '50%', width: '18px', height: '18px', fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {unreadCount}
-                  </span>
-                )}
-              </span>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      )}
+      <nav className="nav-bar" style={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        display: 'flex',
+        justifyContent: 'space-around',
+        backgroundColor: 'white',
+        padding: '12px 8px',
+        boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.1)',
+        zIndex: 100,
+      }}>
+        {navItems.map(item => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`nav-item ${pathname === item.href ? 'active' : ''}`}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '8px 16px',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              color: pathname === item.href ? '#f97316' : '#6b7280',
+              backgroundColor: pathname === item.href ? '#fff7ed' : 'transparent',
+              fontSize: '12px',
+            }}
+          >
+            <span style={{ fontSize: '24px', position: 'relative' }}>
+              {item.icon}
+              {item.href === '/app/matches' && unreadCount > 0 && (
+                <span style={{ 
+                  position: 'absolute', 
+                  top: '-4px', 
+                  right: '-8px', 
+                  backgroundColor: '#ef4444', 
+                  color: 'white', 
+                  borderRadius: '50%', 
+                  width: '18px', 
+                  height: '18px', 
+                  fontSize: '10px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center' 
+                }}>
+                  {unreadCount}
+                </span>
+              )}
+            </span>
+            <span style={{ fontWeight: pathname === item.href ? 600 : 400 }}>{item.label}</span>
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 }

@@ -58,7 +58,7 @@ function CookieConsent() {
           <button 
             onClick={handleAccept}
             className="btn-primary"
-            style={{ padding: '12px 32px' }}
+            style={{ padding: '12px 32px', background: '#f97316' }}
           >
             Akkoord
           </button>
@@ -125,71 +125,63 @@ export default function Home() {
         flex: 1, 
         display: 'flex', 
         flexDirection: 'column', 
-        justifyContent: 'center', 
         alignItems: 'center', 
         padding: '24px',
-        background: 'linear-gradient(180deg, #fff7ed 0%, #fed7aa 50%, #fdba74 100%)',
+        background: `
+          linear-gradient(rgba(255, 248, 240, 0.85), rgba(255, 248, 240, 0.85)),
+          url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1920&q=80') center/cover no-repeat
+        `,
         minHeight: '100vh',
         position: 'relative',
-        overflow: 'hidden',
       }}>
-        <div style={{
-          position: 'absolute',
-          top: '-50px',
-          right: '-50px',
-          width: '200px',
-          height: '200px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(251, 146, 60, 0.3) 0%, transparent 70%)',
-        }} />
-        <div style={{
-          position: 'absolute',
-          bottom: '-100px',
-          left: '-80px',
-          width: '300px',
-          height: '300px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(251, 146, 60, 0.2) 0%, transparent 70%)',
-        }} />
+        <div style={{ 
+          textAlign: 'center', 
+          marginBottom: '24px', 
+          marginTop: '32px',
+          backgroundColor: 'rgba(255,255,255,0.9)',
+          padding: '16px 32px',
+          borderRadius: '16px',
+          boxShadow: '0 4px 16px rgba(249, 115, 22, 0.15)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span style={{ fontSize: '40px' }}>🤝</span>
+            <div>
+              <span style={{ fontSize: '14px', color: '#9a3412', fontWeight: 500 }}>
+                🇳🇱 In heel Nederland
+              </span>
+            </div>
+          </div>
+        </div>
 
-        <div style={{ textAlign: 'center', marginBottom: '32px', position: 'relative', zIndex: 1 }}>
-          <div style={{ 
-            display: 'inline-block',
-            padding: '16px 24px',
-            backgroundColor: 'white',
-            borderRadius: '20px',
-            boxShadow: '0 4px 12px rgba(251, 146, 60, 0.2)',
-            marginBottom: '20px',
-          }}>
-            <span style={{ fontSize: '16px', color: '#c2410c', fontWeight: 600 }}>
-              🇳🇱 In heel Nederland
-            </span>
-          </div>
-          
-          <div style={{ fontSize: '80px', marginBottom: '16px', filter: 'drop-shadow(0 4px 8px rgba(251, 146, 60, 0.3))' }}>
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '16px', 
+          marginBottom: '16px' 
+        }}>
+          <span style={{ fontSize: '56px', filter: 'drop-shadow(0 4px 8px rgba(251, 146, 60, 0.3))' }}>
             🧡
-          </div>
-          
+          </span>
           <h1 style={{ 
             color: '#c2410c', 
-            marginBottom: '12px',
-            fontSize: '42px',
+            fontSize: '48px',
             fontWeight: 800,
             textShadow: '0 2px 4px rgba(251, 146, 60, 0.2)',
+            margin: 0,
           }}>
             Naastje
           </h1>
-          
-          <p style={{ 
-            color: '#9a3412', 
-            fontSize: '20px',
-            maxWidth: '320px',
-            margin: '0 auto',
-            fontWeight: 500,
-          }}>
-            Vind jouw perfecte zorgmatch — persoonlijk, dichtbij en met een klik
-          </p>
         </div>
+        
+        <p style={{ 
+          color: '#9a3412', 
+          fontSize: '20px',
+          maxWidth: '320px',
+          margin: '0 auto 32px',
+          fontWeight: 500,
+        }}>
+          Vind jouw perfecte zorgmatch — persoonlijk, dichtbij en met een klik
+        </p>
 
         <div className="card" style={{ 
           maxWidth: '420px', 
@@ -197,8 +189,6 @@ export default function Home() {
           padding: '32px',
           boxShadow: '0 8px 32px rgba(251, 146, 60, 0.2)',
           borderRadius: '24px',
-          position: 'relative',
-          zIndex: 1,
           border: '2px solid rgba(251, 146, 60, 0.2)',
         }}>
           {!showLogin ? (
@@ -216,9 +206,10 @@ export default function Home() {
                 className="btn-primary"
                 style={{ 
                   width: '100%', 
-                  marginBottom: '16px', 
+                  marginBottom: '12px', 
                   padding: '20px',
-                  background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                  background: '#f97316',
+                  border: 'none',
                 }}
               >
                 <span style={{ fontSize: '28px', marginRight: '16px' }}>🏠</span>
@@ -236,7 +227,7 @@ export default function Home() {
                   marginBottom: '16px', 
                   padding: '20px',
                   background: 'white',
-                  borderColor: '#f97316',
+                  border: '2px solid #f97316',
                   color: '#c2410c',
                 }}
               >
@@ -247,13 +238,34 @@ export default function Home() {
                 </div>
               </button>
 
-              <button 
-                onClick={() => router.push('/hoe-werkt-het')}
-                className="btn-ghost"
-                style={{ width: '100%', marginBottom: '16px', color: '#c2410c' }}
-              >
-                📖 Hoe werkt het?
-              </button>
+              <div style={{ 
+                background: 'linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%)',
+                borderRadius: '16px',
+                padding: '20px',
+                marginBottom: '16px',
+                textAlign: 'center',
+              }}>
+                <button 
+                  onClick={() => router.push('/hoe-werkt-het')}
+                  style={{ 
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '12px',
+                    width: '100%',
+                    color: '#c2410c',
+                  }}
+                >
+                  <span style={{ fontSize: '32px' }}>💡</span>
+                  <span style={{ fontSize: '18px', fontWeight: 600 }}>Hoe werkt het?</span>
+                </button>
+                <p style={{ fontSize: '13px', color: '#9a3412', marginTop: '8px', margin: '8px 0 0' }}>
+                  Ontdek in 4 eenvoudige stappen hoe Naastje werkt
+                </p>
+              </div>
 
               <div style={{ textAlign: 'center', borderTop: '1px solid #fed7aa', paddingTop: '20px', marginTop: '8px' }}>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '12px', fontSize: '14px' }}>
@@ -309,7 +321,7 @@ export default function Home() {
               <button 
                 onClick={handleLogin}
                 className="btn-primary"
-                style={{ width: '100%', marginBottom: '16px', background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)' }}
+                style={{ width: '100%', marginBottom: '16px', background: '#f97316', border: 'none' }}
               >
                 Inloggen
               </button>
@@ -317,7 +329,7 @@ export default function Home() {
           )}
         </div>
 
-        <div style={{ marginTop: '32px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <div style={{ marginTop: '32px', textAlign: 'center' }}>
           <p style={{ color: '#9a3412', fontSize: '14px', marginBottom: '16px' }}>
             Of probeer de app direct uit:
           </p>
@@ -357,8 +369,6 @@ export default function Home() {
           marginTop: '48px', 
           fontSize: '12px', 
           color: '#9a3412',
-          position: 'relative',
-          zIndex: 1,
         }}>
           <p>Gemaakt met 💛 voor de Nederlandse zorg</p>
         </div>
