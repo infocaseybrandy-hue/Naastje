@@ -1,87 +1,76 @@
-# Active Context: Next.js Starter Template
+# Active Context: ZorgMatch
 
 ## Current State
 
-**Template Status**: ✅ Ready for development
+**Project Status**: ✅ Complete
 
-The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
+A Dutch mobile webapp called "ZorgMatch" - a matching platform for PGB-houders (personal budget holders) and zorgverleners (care providers - ZZP'ers and students) in Netherlands. Works like a dating app but for healthcare.
 
 ## Recently Completed
 
-- [x] Base Next.js 16 setup with App Router
-- [x] TypeScript configuration with strict mode
-- [x] Tailwind CSS 4 integration
-- [x] ESLint configuration
-- [x] Memory bank documentation
-- [x] Recipe system for common features
+- [x] Created SPEC.md specification document
+- [x] Built Next.js 16 app with TypeScript
+- [x] Implemented two user types (PGB-houder and zorgverlener)
+- [x] Registration flow with profile creation
+- [x] Swipe matching logic (left=skip, right=like)
+- [x] Match notification when both swipe right
+- [x] Chat system with Premium upgrade for zorgverleners
+- [x] Mollie payment integration (simulated - €19,95/month)
+- [x] Contact info filter (phone, email, social handles blocked for non-premium)
+- [x] Responsive design (mobile + desktop)
+- [x] Purple primary color theme (#7C3AED)
+- [x] All UI in Dutch
 
 ## Current Structure
 
-| File/Directory | Purpose | Status |
-|----------------|---------|--------|
-| `src/app/page.tsx` | Home page | ✅ Ready |
-| `src/app/layout.tsx` | Root layout | ✅ Ready |
-| `src/app/globals.css` | Global styles | ✅ Ready |
-| `.kilocode/` | AI context & recipes | ✅ Ready |
+| File/Directory | Purpose |
+|----------------|---------|
+| `src/app/page.tsx` | Landing/login page |
+| `src/app/register/` | Registration flow |
+| `src/app/app/` | Main app with nav |
+| `src/app/app/discover/` | Swipe interface |
+| `src/app/app/matches/` | Matches list |
+| `src/app/app/chat/[matchId]/` | Chat system |
+| `src/app/app/profile/` | User profile |
+| `src/app/app/upgrade/` | Premium payment |
+| `src/types/` | TypeScript types |
+| `src/data/mockUsers.ts` | Demo data |
+| `src/context/AppContext.tsx` | State management |
 
-## Current Focus
+## Features Implemented
 
-The template is ready. Next steps depend on user requirements:
+### User Types
+- **PGB-houder**: Free, can chat immediately after match
+- **Zorgverlener**: Free profile creation, must pay €19,95/month to chat
 
-1. What type of application to build
-2. What features are needed
-3. Design/branding preferences
+### Matching
+- Swipe right to like, left to skip
+- Mutual right swipe = match
+- Notification when match occurs
 
-## Quick Start Guide
+### Chat
+- PGB-houders can chat freely
+- Non-premium zorgverleners see blurred messages
+- Premium required to read/reply to messages
 
-### To add a new page:
+### Payment (Mollie)
+- iDEAL and automatic incasso options
+- Simulated payment flow
+- Upgrades account to Premium instantly
 
-Create a file at `src/app/[route]/page.tsx`:
-```tsx
-export default function NewPage() {
-  return <div>New page content</div>;
-}
-```
+### Contact Filter
+- Blocks phone numbers, emails, social handles for non-premium users
+- Shows warning message to upgrade
 
-### To add components:
+## Tech Stack
 
-Create `src/components/` directory and add components:
-```tsx
-// src/components/ui/Button.tsx
-export function Button({ children }: { children: React.ReactNode }) {
-  return <button className="px-4 py-2 bg-blue-600 text-white rounded">{children}</button>;
-}
-```
-
-### To add a database:
-
-Follow `.kilocode/recipes/add-database.md`
-
-### To add API routes:
-
-Create `src/app/api/[route]/route.ts`:
-```tsx
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({ message: "Hello" });
-}
-```
-
-## Available Recipes
-
-| Recipe | File | Use Case |
-|--------|------|----------|
-| Add Database | `.kilocode/recipes/add-database.md` | Data persistence with Drizzle + SQLite |
-
-## Pending Improvements
-
-- [ ] Add more recipes (auth, email, etc.)
-- [ ] Add example components
-- [ ] Add testing setup recipe
+- Next.js 16 with App Router
+- TypeScript
+- Tailwind CSS 4
+- LocalStorage for demo persistence
 
 ## Session History
 
 | Date | Changes |
 |------|---------|
-| Initial | Template created with base setup |
+| 2026-04-10 | Created ZorgMatch app with all features |
