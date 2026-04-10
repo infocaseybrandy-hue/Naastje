@@ -32,10 +32,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const savedUser = localStorage.getItem('zorgmatch_user');
-      const savedMatches = localStorage.getItem('zorgmatch_matches');
-      const savedMessages = localStorage.getItem('zorgmatch_messages');
-      const savedSwipes = localStorage.getItem('zorgmatch_swipes');
+      const savedUser = localStorage.getItem('zorgvank_user');
+      const savedMatches = localStorage.getItem('zorgvank_matches');
+      const savedMessages = localStorage.getItem('zorgvank_messages');
+      const savedSwipes = localStorage.getItem('zorgvank_swipes');
       
       if (savedUser) {
         setCurrentUser(JSON.parse(savedUser));
@@ -54,15 +54,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (typeof window !== 'undefined' && currentUser) {
-      localStorage.setItem('zorgmatch_user', JSON.stringify(currentUser));
+      localStorage.setItem('zorgvank_user', JSON.stringify(currentUser));
     }
   }, [currentUser]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('zorgmatch_matches', JSON.stringify(matches));
-      localStorage.setItem('zorgmatch_messages', JSON.stringify(messages));
-      localStorage.setItem('zorgmatch_swipes', JSON.stringify(swipes));
+      localStorage.setItem('zorgvank_matches', JSON.stringify(matches));
+      localStorage.setItem('zorgvank_messages', JSON.stringify(messages));
+      localStorage.setItem('zorgvank_swipes', JSON.stringify(swipes));
     }
   }, [matches, messages, swipes]);
 
@@ -73,7 +73,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setCurrentUser(null);
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('zorgmatch_user');
+      localStorage.removeItem('zorgvank_user');
     }
   };
 
@@ -82,6 +82,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       id: generateId(),
       email: userData.email || '',
       type,
+      subtype: userData.subtype,
       name: userData.name || '',
       photo: userData.photo || `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=400&fit=crop`,
       description: userData.description || '',
@@ -90,8 +91,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
       interests: userData.interests || [],
       availability: userData.availability || 0,
       education: userData.education || [],
-      isPremium: type === 'pgb_houder',
+      categories: userData.categories || [],
+      isPremium: type === 'zorgzoeker',
       createdAt: new Date(),
+      hasPets: userData.hasPets,
+      petType: userData.petType,
+      cleaningProducts: userData.cleaningProducts,
+      otherNotes: userData.otherNotes,
     };
     setUsers(prev => [...prev, newUser]);
     setCurrentUser(newUser);

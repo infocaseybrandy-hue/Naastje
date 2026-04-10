@@ -10,8 +10,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "ZorgMatch - Matchingplatform voor zorg",
-  description: "Vind de perfecte zorgverlener of PGB-houder. Een warm en vriendelijk platform voor Nederlandse zorgmatching.",
+  title: "ZorgVonk - Jouw perfecte zorgmatch",
+  description: "Vind de perfecte zorgverlener of hulp in de buurt. ZorgVonk verbindt PGB-houders en zorgvragers met de juiste zorg — persoonlijk, dichtbij en met een klik.",
 };
 
 export const viewport = {

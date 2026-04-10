@@ -58,10 +58,10 @@ export default function ChatPage() {
     );
   }
 
-  const isZorgverlener = currentUser.type === 'zorgverlener';
+  const isZorgaanbieder = currentUser.type === 'zorgaanbieder';
   const isPremium = currentUser.isPremium;
 
-  const canChat = currentUser.type === 'pgb_houder' || isPremium;
+  const canChat = currentUser.type === 'zorgzoeker' || isPremium;
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();

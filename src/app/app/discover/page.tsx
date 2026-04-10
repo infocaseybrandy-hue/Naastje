@@ -133,7 +133,7 @@ export default function DiscoverPage() {
           </div>
         )}
 
-        {currentProfile.type === 'zorgverlener' && currentProfile.education && currentProfile.education.length > 0 && (
+        {currentProfile.type === 'zorgaanbieder' && currentProfile.education && currentProfile.education.length > 0 && (
           <div style={{ marginBottom: '16px' }}>
             <p style={{ fontWeight: 600, marginBottom: '8px' }}>Opleidingen:</p>
             <div>

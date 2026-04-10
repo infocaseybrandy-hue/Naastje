@@ -11,7 +11,7 @@ function CookieConsent() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('zorgmatch_cookie_consent');
+      const saved = localStorage.getItem('zorgvank_cookie_consent');
       if (!saved) {
         setAccepted(false);
         setVisible(true);
@@ -21,7 +21,7 @@ function CookieConsent() {
 
   const handleAccept = () => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('zorgmatch_cookie_consent', 'accepted');
+      localStorage.setItem('zorgvank_cookie_consent', 'accepted');
     }
     setAccepted(true);
     setVisible(false);
@@ -127,7 +127,7 @@ function RegisterForm() {
     }
   };
 
-  const isZorgverlener = userType === 'zorgverlener';
+  const isZorgaanbieder = userType === 'zorgaanbieder';
 
   return (
     <div className="card" style={{ maxWidth: '450px', width: '100%', padding: '32px' }}>
@@ -270,7 +270,7 @@ function RegisterForm() {
             />
           </div>
           
-          {isZorgverlener && (
+          {isZorgaanbieder && (
             <div style={{ marginBottom: '24px' }}>
               <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Opleidingen en cursussen</label>
               <input

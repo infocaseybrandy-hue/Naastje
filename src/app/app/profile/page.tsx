@@ -20,8 +20,8 @@ export default function ProfilePage() {
 
   if (!currentUser) return null;
 
-  const isPGB = currentUser.type === 'pgb_houder';
-  const isZorgverlener = currentUser.type === 'zorgverlener';
+  const isZorgzoeker = currentUser.type === 'zorgzoeker';
+  const isZorgaanbieder = currentUser.type === 'zorgaanbieder';
 
   const handleSave = () => {
     updateProfile({
@@ -57,7 +57,7 @@ export default function ProfilePage() {
         <h2>{currentUser.name}</h2>
         <p style={{ color: 'var(--text-secondary)' }}>📍 {currentUser.location}</p>
         
-        {isZorgverlener && !currentUser.isPremium && (
+        {isZorgaanbieder && !currentUser.isPremium && (
           <div style={{ marginTop: '16px', padding: '12px', backgroundColor: '#fef3c7', borderRadius: '12px' }}>
             <p style={{ margin: 0, color: '#92400e', fontWeight: 600 }}>
               Gratis account - Upgrade naar Premium
@@ -79,7 +79,7 @@ export default function ProfilePage() {
         )}
 
         <div style={{ marginTop: '16px' }}>
-          <span className="badge">{isPGB ? '🧑‍🤝‍🧑 PGB-houder' : '👩‍⚕️ Zorgverlener'}</span>
+          <span className="badge">{isZorgzoeker ? '🏠 Zorgzoeker' : '💛 Zorgaanbieder'}</span>
         </div>
       </div>
 
@@ -170,7 +170,7 @@ export default function ProfilePage() {
           )}
         </div>
 
-        {isZorgverlener && (
+        {isZorgaanbieder && (
           <div className="profile-section">
             <div className="profile-section-title">Opleidingen en cursussen</div>
             {isEditing ? (
