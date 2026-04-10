@@ -1,8 +1,8 @@
-# ZorgMatch - Specification Document
+# Naastje - Specification Document
 
 ## 1. Project Overview
 
-**Project Name:** ZorgMatch  
+**Project Name:** Naastje  
 **Type:** Mobile-first webapp (responsive, works on mobile and desktop)  
 **Core Functionality:** Een matchingplatform voor PGB-houders en zorgverleners (ZZP'ers en studenten) in Nederland — werkt als een datingapp maar dan voor zorg.  
 **Target Users:** PGB-houders (mensen met persoonlijk budget voor zorg) en zorgverleners (ZZP'ers, zorgstudenten).

@@ -24,45 +24,47 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('naastje_user');
+      return saved ? JSON.parse(saved) : null;
+    }
+    return null;
+  });
   const [users, setUsers] = useState<User[]>(mockUsers);
-  const [matches, setMatches] = useState<Match[]>([]);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [swipes, setSwipes] = useState<Swipe[]>([]);
+  const [matches, setMatches] = useState<Match[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('naastje_matches');
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  });
+  const [messages, setMessages] = useState<Message[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('naastje_messages');
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  });
+  const [swipes, setSwipes] = useState<Swipe[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('naastje_swipes');
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const savedUser = localStorage.getItem('zorgvank_user');
-      const savedMatches = localStorage.getItem('zorgvank_matches');
-      const savedMessages = localStorage.getItem('zorgvank_messages');
-      const savedSwipes = localStorage.getItem('zorgvank_swipes');
-      
-      if (savedUser) {
-        setCurrentUser(JSON.parse(savedUser));
-      }
-      if (savedMatches) {
-        setMatches(JSON.parse(savedMatches));
-      }
-      if (savedMessages) {
-        setMessages(JSON.parse(savedMessages));
-      }
-      if (savedSwipes) {
-        setSwipes(JSON.parse(savedSwipes));
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && currentUser) {
-      localStorage.setItem('zorgvank_user', JSON.stringify(currentUser));
+      localStorage.setItem('naastje_user', JSON.stringify(currentUser));
     }
   }, [currentUser]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('zorgvank_matches', JSON.stringify(matches));
-      localStorage.setItem('zorgvank_messages', JSON.stringify(messages));
-      localStorage.setItem('zorgvank_swipes', JSON.stringify(swipes));
+      localStorage.setItem('naastje_matches', JSON.stringify(matches));
+      localStorage.setItem('naastje_messages', JSON.stringify(messages));
+      localStorage.setItem('naastje_swipes', JSON.stringify(swipes));
     }
   }, [matches, messages, swipes]);
 
@@ -73,7 +75,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setCurrentUser(null);
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('zorgvank_user');
+      localStorage.removeItem('naastje_user');
     }
   };
 

@@ -6,22 +6,28 @@ import { useApp } from '@/context/AppContext';
 import { UserType, ZORG_CATEGORIES, ZORGZOEKER_TASKS, AvailabilityTime, ZorgzoekerType, ZorgaanbiederType } from '@/types';
 
 function CookieConsent() {
-  const [visible, setVisible] = useState(false);
-  const [accepted, setAccepted] = useState(true);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('naastje_cookie_consent') === null;
+    }
+    return false;
+  });
+  const [accepted, setAccepted] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('naastje_cookie_consent') !== null;
+    }
+    return true;
+  });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('zorgvank_cookie_consent');
-      if (!saved) {
-        setAccepted(false);
-        setVisible(true);
-      }
+      localStorage.getItem('naastje_cookie_consent');
     }
   }, []);
 
   const handleAccept = () => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('zorgvank_cookie_consent', 'accepted');
+      localStorage.setItem('naastje_cookie_consent', 'accepted');
     }
     setAccepted(true);
     setVisible(false);
@@ -44,7 +50,7 @@ function CookieConsent() {
         <div style={{ fontSize: '32px', marginBottom: '12px' }}>🍪</div>
         <h3 style={{ marginBottom: '12px', color: 'var(--primary)' }}>Privacy & Cookies</h3>
         <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: 1.6 }}>
-          ZorgVonk gebruikt cookies om de app goed te laten werken. 
+          Naastje gebruikt cookies om de app goed te laten werken. 
           Je persoonsgegevens worden alleen gebruikt voor het matchen van zorgvragers en zorgverleners.
         </p>
         <button 
@@ -240,7 +246,7 @@ function RegisterForm() {
             ) : (
               <select name="subtype" value={formData.subtype} onChange={handleChange} className="input-field">
                 <option value="">Kies...</option>
-                <option value="zzp_zorgverlener">💼 ZZP'er in de zorg</option>
+                <option value="zzp_zorgverlener">💼 ZZP&apos;er in de zorg</option>
                 <option value="student">🎓 Student zorg/medicijnen</option>
                 <option value="huishoudelijke_hulp">🧹 Huishoudelijke hulp</option>
                 <option value="vrijwilliger">❤️ Vrijwilliger/maatje</option>
@@ -446,7 +452,7 @@ export default function RegisterPage() {
     <div className="page-container" style={{ background: 'linear-gradient(135deg, #FFF7ED 0%, #FED7AA 100%)' }}>
       <CookieConsent />
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '24px', marginTop: '24px' }}>
-        <h1 style={{ color: 'var(--primary)', marginBottom: '8px' }}>ZorgVonk</h1>
+        <h1 style={{ color: 'var(--primary)', marginBottom: '8px' }}>Naastje</h1>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '32px' }}>Profiel aanmaken</p>
 
         <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>

@@ -10,8 +10,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "ZorgVonk - Jouw perfecte zorgmatch",
-  description: "Vind de perfecte zorgverlener of hulp in de buurt. ZorgVonk verbindt PGB-houders en zorgvragers met de juiste zorg — persoonlijk, dichtbij en met een klik.",
+  title: "Naastje - Jouw perfecte zorgmatch",
+  description: "Vind de perfecte zorgverlener of hulp in de buurt. Naastje verbindt PGB-houders en zorgvragers met de juiste zorg — persoonlijk, dichtbij en met een klik.",
 };
 
 export const viewport = {

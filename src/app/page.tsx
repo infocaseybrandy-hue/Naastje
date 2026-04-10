@@ -6,22 +6,28 @@ import { useApp } from '@/context/AppContext';
 import { UserType } from '@/types';
 
 function CookieConsent() {
-  const [visible, setVisible] = useState(false);
-  const [accepted, setAccepted] = useState(true);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('naastje_cookie_consent') === null;
+    }
+    return false;
+  });
+  const [accepted, setAccepted] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('naastje_cookie_consent') !== null;
+    }
+    return true;
+  });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('zorgvank_cookie_consent');
-      if (!saved) {
-        setAccepted(false);
-        setVisible(true);
-      }
+      localStorage.getItem('naastje_cookie_consent');
     }
   }, []);
 
   const handleAccept = () => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('zorgvank_cookie_consent', 'accepted');
+      localStorage.setItem('naastje_cookie_consent', 'accepted');
     }
     setAccepted(true);
     setVisible(false);
@@ -44,7 +50,7 @@ function CookieConsent() {
         <div style={{ fontSize: '32px', marginBottom: '12px' }}>🍪</div>
         <h3 style={{ marginBottom: '12px', color: 'var(--primary)' }}>Privacy & Cookies</h3>
         <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: 1.6 }}>
-          ZorgVonk gebruikt cookies om de app goed te laten werken. 
+          Naastje gebruikt cookies om de app goed te laten werken. 
           We verwerken je persoonsgegevens alleen voor het matchen van zorgvragers en zorgverleners. 
           Je gegevens worden nooit gedeeld met derden.
         </p>
@@ -171,7 +177,7 @@ export default function Home() {
             fontWeight: 800,
             textShadow: '0 2px 4px rgba(251, 146, 60, 0.2)',
           }}>
-            ZorgVonk
+            Naastje
           </h1>
           
           <p style={{ 
@@ -202,7 +208,7 @@ export default function Home() {
               </h2>
               
               <p style={{ textAlign: 'center', marginBottom: '24px', color: 'var(--text-secondary)', fontSize: '14px' }}>
-                ZorgVonk verbindt jou met de juiste zorg of hulp in de buurt
+                Naastje verbindt jou met de juiste zorg of hulp in de buurt
               </p>
               
               <button 
@@ -237,7 +243,7 @@ export default function Home() {
                 <span style={{ fontSize: '28px', marginRight: '16px' }}>💛</span>
                 <div style={{ textAlign: 'left' }}>
                   <div style={{ fontWeight: 700, fontSize: '16px' }}>Ik bied zorg of hulp aan</div>
-                  <div style={{ fontSize: '14px', opacity: 0.7 }}>ZZP'er, student, of vrijwilliger</div>
+                  <div style={{ fontSize: '14px', opacity: 0.7 }}>ZZP&apos;er, student, of vrijwilliger</div>
                 </div>
               </button>
 

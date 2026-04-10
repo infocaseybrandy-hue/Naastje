@@ -5,22 +5,28 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 function CookieConsent() {
-  const [visible, setVisible] = useState(false);
-  const [accepted, setAccepted] = useState(true);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('naastje_cookie_consent') === null;
+    }
+    return false;
+  });
+  const [accepted, setAccepted] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('naastje_cookie_consent') !== null;
+    }
+    return true;
+  });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('zorgvank_cookie_consent');
-      if (!saved) {
-        setAccepted(false);
-        setVisible(true);
-      }
+      localStorage.getItem('naastje_cookie_consent');
     }
   }, []);
 
   const handleAccept = () => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('zorgvank_cookie_consent', 'accepted');
+      localStorage.setItem('naastje_cookie_consent', 'accepted');
     }
     setAccepted(true);
     setVisible(false);
@@ -43,7 +49,7 @@ function CookieConsent() {
         <div style={{ fontSize: '32px', marginBottom: '12px' }}>🍪</div>
         <h3 style={{ marginBottom: '12px', color: 'var(--primary)' }}>Privacy & Cookies</h3>
         <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: 1.6 }}>
-          ZorgVonk gebruikt cookies om de app goed te laten werken. 
+          Naastje gebruikt cookies om de app goed te laten werken. 
           We verwerken je persoonsgegevens alleen voor het matchen van zorgvragers en zorgverleners. 
           Je gegevens worden nooit gedeeld met derden.
         </p>
@@ -120,7 +126,7 @@ export default function HoeWerktHetPage() {
             fontSize: '32px',
             fontWeight: 800,
           }}>
-            Hoe werkt ZorgVonk?
+            Hoe werkt Naastje?
           </h1>
           
           <p style={{ 

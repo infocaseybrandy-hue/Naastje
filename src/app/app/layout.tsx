@@ -15,11 +15,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const { currentUser, logout, matches, getMatches } = useApp();
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsMobile(window.innerWidth < 768);
       const handleResize = () => setIsMobile(window.innerWidth < 768);
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
@@ -42,7 +46,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {!isMobile && (
         <nav className="nav-bar" style={{ position: 'fixed', left: 0, top: 0, bottom: 0, width: '240px', flexDirection: 'column', justifyContent: 'flex-start', padding: '24px 16px', backgroundColor: 'white' }}>
           <div style={{ marginBottom: '32px', textAlign: 'center' }}>
-            <h2 style={{ color: 'var(--primary)', fontSize: '24px' }}>🏥 ZorgMatch</h2>
+            <h2 style={{ color: 'var(--primary)', fontSize: '24px' }}>💛 Naastje</h2>
           </div>
           
           {navItems.map(item => (
