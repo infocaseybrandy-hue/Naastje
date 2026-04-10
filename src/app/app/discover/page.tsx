@@ -114,7 +114,7 @@ export default function DiscoverPage() {
           <h2 style={{ marginBottom: '4px' }}>{currentProfile.name}</h2>
           <p style={{ opacity: 0.9, marginBottom: '8px' }}>📍 {currentProfile.location}</p>
           <p style={{ opacity: 0.8, fontSize: '14px' }}>
-            ⏰ {currentProfile.availabilityHours} uur/week • {currentProfile.availabilityTimes?.join(', ') || 'flexibel'}
+            ⏰ {currentProfile.availabilityHours} uur/week
           </p>
         </div>
       </div>
