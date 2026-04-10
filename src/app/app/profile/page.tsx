@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
+import { Gender, AvailabilityTime } from '@/types';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -10,12 +11,15 @@ export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: currentUser?.name || '',
+    gender: currentUser?.gender || '' as Gender | '',
     description: currentUser?.description || '',
     location: currentUser?.location || '',
     religion: currentUser?.religion || '',
     interests: currentUser?.interests.join(', ') || '',
-    availability: currentUser?.availability || 8,
+    availabilityHours: currentUser?.availabilityHours || 8,
+    availabilityTimes: currentUser?.availabilityTimes || [] as AvailabilityTime[],
     education: currentUser?.education.join(', ') || '',
+    diplomas: currentUser?.diplomas.join(', ') || '',
   });
 
   if (!currentUser) return null;
@@ -26,14 +30,31 @@ export default function ProfilePage() {
   const handleSave = () => {
     updateProfile({
       name: formData.name,
+      gender: formData.gender as Gender,
       description: formData.description,
       location: formData.location,
       religion: formData.religion || undefined,
       interests: formData.interests.split(',').map(i => i.trim()).filter(Boolean),
-      availability: formData.availability,
+      availabilityHours: formData.availabilityHours,
+      availabilityTimes: formData.availabilityTimes,
       education: formData.education.split(',').map(e => e.trim()).filter(Boolean),
+      diplomas: formData.diplomas.split(',').map(d => d.trim()).filter(Boolean),
     });
     setIsEditing(false);
+  };
+
+  const timeLabels: Record<AvailabilityTime, string> = {
+    'ochtend': 'Ochtend',
+    'middag': 'Middag',
+    'avond': 'Avond',
+    'nacht': 'Nacht',
+    '24_uur': '24-uurs',
+  };
+
+  const genderLabels: Record<Gender, string> = {
+    'man': '👨 Man',
+    'vrouw': '👩 Vrouw',
+    'anders': '🌈 Anders',
   };
 
   return (
@@ -56,6 +77,12 @@ export default function ProfilePage() {
         />
         <h2>{currentUser.name}</h2>
         <p style={{ color: 'var(--text-secondary)' }}>📍 {currentUser.location}</p>
+        
+        {currentUser.gender && (
+          <div style={{ marginTop: '8px' }}>
+            <span className="badge">{genderLabels[currentUser.gender]}</span>
+          </div>
+        )}
         
         {isZorgaanbieder && !currentUser.isPremium && (
           <div style={{ marginTop: '16px', padding: '12px', backgroundColor: '#fef3c7', borderRadius: '12px' }}>
@@ -115,39 +142,66 @@ export default function ProfilePage() {
         <div className="profile-section">
           <div className="profile-section-title">Beschikbaarheid</div>
           {isEditing ? (
-            <select
-              value={formData.availability}
-              onChange={(e) => setFormData(prev => ({ ...prev, availability: parseInt(e.target.value) }))}
-              className="input-field"
-            >
-              {[4, 8, 12, 16, 20, 24, 32, 40].map(h => (
-                <option key={h} value={h}>{h} uur per week</option>
-              ))}
-            </select>
+            <>
+              <select
+                value={formData.availabilityHours}
+                onChange={(e) => setFormData(prev => ({ ...prev, availabilityHours: parseInt(e.target.value) }))}
+                className="input-field"
+                style={{ marginBottom: '12px' }}
+              >
+                {[4, 8, 12, 16, 20, 24, 32, 40].map(h => (
+                  <option key={h} value={h}>{h} uur per week</option>
+                ))}
+              </select>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {(Object.keys(timeLabels) as AvailabilityTime[]).map(time => (
+                  <label
+                    key={time}
+                    style={{
+                      padding: '8px 12px',
+                      border: formData.availabilityTimes.includes(time) 
+                        ? '2px solid var(--primary)' 
+                        : '2px solid #e5e7eb',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={formData.availabilityTimes.includes(time)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setFormData(prev => ({ ...prev, availabilityTimes: [...prev.availabilityTimes, time] }));
+                        } else {
+                          setFormData(prev => ({ ...prev, availabilityTimes: prev.availabilityTimes.filter(t => t !== time) }));
+                        }
+                      }}
+                      style={{ display: 'none' }}
+                    />
+                    {timeLabels[time]}
+                  </label>
+                ))}
+              </div>
+            </>
           ) : (
-            <p>⏰ {currentUser.availability} uur per week</p>
+            <div>
+              <p>⏰ {currentUser.availabilityHours} uur per week</p>
+              {currentUser.availabilityTimes && currentUser.availabilityTimes.length > 0 && (
+                <div style={{ marginTop: '8px' }}>
+                  {currentUser.availabilityTimes.map((time, idx) => (
+                    <span key={idx} className="tag">{timeLabels[time]}</span>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
         </div>
 
         {currentUser.religion && (
           <div className="profile-section">
             <div className="profile-section-title">Geloofsovertuiging</div>
-            {isEditing ? (
-              <select
-                value={formData.religion}
-                onChange={(e) => setFormData(prev => ({ ...prev, religion: e.target.value }))}
-                className="input-field"
-              >
-                <option value="">Kies</option>
-                <option value="Geen">Geen</option>
-                <option value="Christelijk">Christelijk</option>
-                <option value="Katholiek">Katholiek</option>
-                <option value="Protestants">Protestants</option>
-                <option value="Islam">Islam</option>
-              </select>
-            ) : (
-              <p>🕊️ {currentUser.religion}</p>
-            )}
+            <p>🕊️ {currentUser.religion}</p>
           </div>
         )}
 
@@ -163,36 +217,65 @@ export default function ProfilePage() {
             />
           ) : (
             <div>
-              {currentUser.interests.map((interest, idx) => (
-                <span key={idx} className="tag">{interest}</span>
-              ))}
+              {currentUser.interests.length > 0 ? (
+                currentUser.interests.map((interest, idx) => (
+                  <span key={idx} className="tag">{interest}</span>
+                ))
+              ) : (
+                <p style={{ color: 'var(--text-secondary)' }}>Geen interesses toegevoegd</p>
+              )}
             </div>
           )}
         </div>
 
         {isZorgaanbieder && (
-          <div className="profile-section">
-            <div className="profile-section-title">Opleidingen en cursussen</div>
-            {isEditing ? (
-              <input
-                type="text"
-                value={formData.education}
-                onChange={(e) => setFormData(prev => ({ ...prev, education: e.target.value }))}
-                className="input-field"
-                placeholder="Gescheiden door komma's"
-              />
-            ) : (
-              <div>
-                {currentUser.education.length > 0 ? (
-                  currentUser.education.map((edu, idx) => (
-                    <span key={idx} className="tag">{edu}</span>
-                  ))
-                ) : (
-                  <p style={{ color: 'var(--text-secondary)' }}>Geen opleidingen toegevoegd</p>
-                )}
-              </div>
-            )}
-          </div>
+          <>
+            <div className="profile-section">
+              <div className="profile-section-title">🎓 Opleidingen</div>
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={formData.education}
+                  onChange={(e) => setFormData(prev => ({ ...prev, education: e.target.value }))}
+                  className="input-field"
+                  placeholder="Gescheiden door komma's"
+                />
+              ) : (
+                <div>
+                  {currentUser.education.length > 0 ? (
+                    currentUser.education.map((edu, idx) => (
+                      <span key={idx} className="tag">{edu}</span>
+                    ))
+                  ) : (
+                    <p style={{ color: 'var(--text-secondary)' }}>Geen opleidingen toegevoegd</p>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="profile-section">
+              <div className="profile-section-title">📜 Diploma&apos;s en certificaten</div>
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={formData.diplomas}
+                  onChange={(e) => setFormData(prev => ({ ...prev, diplomas: e.target.value }))}
+                  className="input-field"
+                  placeholder="Gescheiden door komma's"
+                />
+              ) : (
+                <div>
+                  {currentUser.diplomas && currentUser.diplomas.length > 0 ? (
+                    currentUser.diplomas.map((dip, idx) => (
+                      <span key={idx} className="tag">{dip}</span>
+                    ))
+                  ) : (
+                    <p style={{ color: 'var(--text-secondary)' }}>Geen diploma&apos;s toegevoegd</p>
+                  )}
+                </div>
+              )}
+            </div>
+          </>
         )}
       </div>
 

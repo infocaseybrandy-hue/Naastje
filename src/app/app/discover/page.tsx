@@ -113,7 +113,9 @@ export default function DiscoverPage() {
         <div className="swipe-card-overlay">
           <h2 style={{ marginBottom: '4px' }}>{currentProfile.name}</h2>
           <p style={{ opacity: 0.9, marginBottom: '8px' }}>📍 {currentProfile.location}</p>
-          <p style={{ opacity: 0.8, fontSize: '14px' }}>⏰ {currentProfile.availability} uur/week beschikbaar</p>
+          <p style={{ opacity: 0.8, fontSize: '14px' }}>
+            ⏰ {currentProfile.availabilityHours} uur/week • {currentProfile.availabilityTimes?.join(', ') || 'flexibel'}
+          </p>
         </div>
       </div>
 

@@ -12,6 +12,15 @@ export type ZorgaanbiederType =
   | 'huishoudelijke_hulp' 
   | 'vrijwilliger';
 
+export type Gender = 'man' | 'vrouw' | 'anders';
+
+export type AvailabilityTime = 
+  | 'ochtend' 
+  | 'middag' 
+  | 'avond' 
+  | 'nacht'
+  | '24_uur';
+
 export const ZORG_CATEGORIES = [
   { id: 'persoonlijke_verzorging', label: 'Persoonlijke verzorging' },
   { id: 'verpleegkundige_zorg', label: 'Verpleegkundige zorg' },
@@ -45,10 +54,13 @@ export interface User {
   photo: string;
   description: string;
   location: string;
+  gender?: Gender;
   religion?: string;
   interests: string[];
-  availability: number;
+  availabilityHours?: number;
+  availabilityTimes: AvailabilityTime[];
   education: string[];
+  diplomas: string[];
   categories: string[];
   isPremium: boolean;
   createdAt: Date;
