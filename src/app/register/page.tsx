@@ -1,9 +1,63 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
 import { UserType } from '@/types';
+
+function CookieConsent() {
+  const [visible, setVisible] = useState(false);
+  const [accepted, setAccepted] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('zorgmatch_cookie_consent');
+      if (!saved) {
+        setAccepted(false);
+        setVisible(true);
+      }
+    }
+  }, []);
+
+  const handleAccept = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('zorgmatch_cookie_consent', 'accepted');
+    }
+    setAccepted(true);
+    setVisible(false);
+  };
+
+  if (!visible || accepted) return null;
+
+  return (
+    <div style={{
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: 'white',
+      boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.15)',
+      padding: '20px',
+      zIndex: 1000,
+    }}>
+      <div style={{ maxWidth: '500px', margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ fontSize: '32px', marginBottom: '12px' }}>🍪</div>
+        <h3 style={{ marginBottom: '12px', color: 'var(--primary)' }}>Privacy & Cookies</h3>
+        <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: 1.6 }}>
+          ZorgMatch gebruikt cookies om de app goed te laten werken. 
+          Je persoonsgegevens worden alleen gebruikt voor het matchen van zorgvragers en zorgverleners.
+        </p>
+        <button 
+          onClick={handleAccept}
+          className="btn-primary"
+          style={{ padding: '12px 32px' }}
+        >
+          Akkoord
+        </button>
+      </div>
+    </div>
+  );
+}
 
 function RegisterForm() {
   const router = useRouter();
@@ -246,6 +300,7 @@ function RegisterForm() {
 export default function RegisterPage() {
   return (
     <div className="page-container" style={{ background: 'linear-gradient(135deg, #FEFCFF 0%, #f3e8ff 100%)' }}>
+      <CookieConsent />
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '24px', marginTop: '24px' }}>
         <h1 style={{ color: 'var(--primary)', marginBottom: '8px' }}>ZorgMatch</h1>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '32px' }}>
