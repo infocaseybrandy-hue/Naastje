@@ -129,12 +129,15 @@ export default function ProfilePage() {
           borderRadius: '50%',
           margin: '0 auto 16px',
           overflow: 'hidden',
-          backgroundColor: '#fed7aa',
+          backgroundColor: '#E8763A',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           border: '4px solid #fff7ed',
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+          fontSize: '36px',
+          fontWeight: '500',
+          color: 'white',
         }}>
           {currentUser.photo ? (
             <img 
@@ -143,8 +146,8 @@ export default function ProfilePage() {
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           ) : (
-            <span style={{ color: '#c2410c', fontWeight: 600, fontSize: '36px' }}>
-              {getInitials(currentUser.name)}
+            <span style={{ fontWeight: '500', fontSize: '36px' }}>
+              {currentUser.name?.split(' ').map(n => n[0]).join('').toUpperCase()}
             </span>
           )}
         </div>

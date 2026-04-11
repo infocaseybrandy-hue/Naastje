@@ -112,15 +112,16 @@ export default function MatchesPage() {
                   width: '56px',
                   height: '56px',
                   borderRadius: '50%',
-                  backgroundColor: '#fed7aa',
+                  backgroundColor: '#E8763A',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   border: '3px solid #fed7aa',
+                  fontSize: '18px',
+                  fontWeight: '500',
+                  color: 'white',
                 }}>
-                  <span style={{ color: '#c2410c', fontWeight: 600, fontSize: '18px' }}>
-                    {getInitials(matchUser.name)}
-                  </span>
+                  {matchUser.name?.split(' ').map(n => n[0]).join('').toUpperCase()}
                 </div>
               )}
               <div style={{ flex: 1, minWidth: 0 }}>

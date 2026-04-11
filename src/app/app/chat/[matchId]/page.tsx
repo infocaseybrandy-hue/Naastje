@@ -124,15 +124,16 @@ export default function ChatPage() {
             width: '44px', 
             height: '44px', 
             borderRadius: '50%', 
-            backgroundColor: '#fed7aa',
+            backgroundColor: '#E8763A',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             border: '2px solid #fed7aa',
+            fontSize: '18px',
+            fontWeight: '500',
+            color: 'white',
           }}>
-            <span style={{ color: '#c2410c', fontWeight: 600, fontSize: '16px' }}>
-              {otherUser.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
-            </span>
+            {otherUser.name?.split(' ').map(n => n[0]).join('').toUpperCase()}
           </div>
         )}
         <div>
