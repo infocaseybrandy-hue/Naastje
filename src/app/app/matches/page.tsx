@@ -19,19 +19,29 @@ export default function MatchesPage() {
     return matchMessages[matchMessages.length - 1];
   };
 
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(' ');
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return name.slice(0, 2).toUpperCase();
+  };
+
   if (!currentUser) return null;
 
   if (userMatches.length === 0) {
     return (
       <div style={{ 
-        padding: '24px', 
+        paddingTop: '24px', 
+        paddingRight: '24px', 
+        paddingBottom: '80px', 
+        paddingLeft: '24px',
         textAlign: 'center', 
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: 'calc(100vh - 160px)',
-        paddingBottom: '80px',
       }}>
         <div style={{ fontSize: '64px', marginBottom: '16px' }}>💛</div>
         <h2 style={{ marginBottom: '12px', color: '#c2410c', fontSize: '20px' }}>Nog geen matches</h2>
@@ -58,7 +68,7 @@ export default function MatchesPage() {
   }
 
   return (
-    <div style={{ padding: '16px', paddingBottom: '80px' }}>
+    <div style={{ paddingTop: '16px', paddingRight: '16px', paddingBottom: '80px', paddingLeft: '16px' }}>
       <h1 style={{ marginBottom: '20px', color: '#c2410c', fontSize: '20px' }}>Jouw Matches</h1>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -67,6 +77,8 @@ export default function MatchesPage() {
           const lastMessage = getLastMessage(match.id);
           
           if (!matchUser) return null;
+
+          const hasPhoto = matchUser.photo && matchUser.photo.length > 0;
 
           return (
             <div 
@@ -83,17 +95,34 @@ export default function MatchesPage() {
                 cursor: 'pointer',
               }}
             >
-              <img 
-                src={matchUser.photo} 
-                alt={matchUser.name}
-                style={{ 
-                  width: '56px', 
-                  height: '56px', 
-                  borderRadius: '50%', 
-                  objectFit: 'cover',
+              {hasPhoto ? (
+                <img 
+                  src={matchUser.photo} 
+                  alt={matchUser.name}
+                  style={{ 
+                    width: '56px', 
+                    height: '56px', 
+                    borderRadius: '50%', 
+                    objectFit: 'cover',
+                    border: '3px solid #fed7aa',
+                  }}
+                />
+              ) : (
+                <div style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  backgroundColor: '#fed7aa',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   border: '3px solid #fed7aa',
-                }}
-              />
+                }}>
+                  <span style={{ color: '#c2410c', fontWeight: 600, fontSize: '18px' }}>
+                    {getInitials(matchUser.name)}
+                  </span>
+                </div>
+              )}
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                   <h3 style={{ margin: 0, fontSize: '16px', color: '#1f2937' }}>{matchUser.name}</h3>

@@ -54,6 +54,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
           } catch (e) {
             console.error('Failed to parse matches:', e);
           }
+        } else {
+          const demoMatches: Match[] = [
+            { id: 'demo-1', user1: 'current', user2: 'demo-1-user', matchedAt: new Date() },
+            { id: 'demo-2', user1: 'current', user2: 'demo-2-user', matchedAt: new Date() },
+            { id: 'demo-3', user1: 'current', user2: 'demo-3-user', matchedAt: new Date() },
+          ];
+          setMatches(demoMatches);
         }
         if (savedMessages) {
           try {
@@ -61,6 +68,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
           } catch (e) {
             console.error('Failed to parse messages:', e);
           }
+        } else {
+          const demoMessages: Message[] = [
+            { id: 'msg-1', matchId: 'demo-1', fromUserId: 'demo-1-user', content: '👋 Hoi! Ik zag je profiel en zou graag kennismaken. Laten we even praten?', sentAt: new Date() },
+            { id: 'msg-2', matchId: 'demo-2', fromUserId: 'demo-2-user', content: 'Hey! Wat een leuk profiel. Heb je al lang een PGB?', sentAt: new Date() },
+            { id: 'msg-3', matchId: 'demo-3', fromUserId: 'demo-3-user', content: 'Hoi! Ik ben student verpleegkunde en op zoek naar praktijkervaring. Ik help je graag!', sentAt: new Date() },
+          ];
+          setMessages(demoMessages);
         }
         if (savedSwipes) {
           try {

@@ -236,7 +236,7 @@ export default function ProfilePage() {
           )}
         </div>
 
-        {currentUser.religion && (
+        {currentUser.religion && currentUser.religion !== 'Geen' && (
           <div style={{ marginBottom: '20px' }}>
             <h3 style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Geloof of levensbeschouwing</h3>
             <span style={tagStyle}>

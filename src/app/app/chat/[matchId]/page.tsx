@@ -49,7 +49,7 @@ export default function ChatPage() {
 
   if (!match || !currentUser || !otherUser) {
     return (
-      <div style={{ padding: '24px', textAlign: 'center', paddingBottom: '80px' }}>
+      <div style={{ paddingTop: '24px', paddingRight: '24px', paddingBottom: '80px', paddingLeft: '24px', textAlign: 'center' }}>
         <p>Chat niet gevonden</p>
         <button 
           onClick={() => router.push('/app/matches')} 
