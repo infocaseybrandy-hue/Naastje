@@ -10,9 +10,12 @@ function CookieConsent() {
   const [accepted, setAccepted] = useState(false);
 
   useEffect(() => {
+    console.log('CookieConsent mounted, checking localStorage...');
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('naastje_cookie_consent');
+      console.log('Saved cookie consent:', saved);
       if (!saved) {
+        console.log('Setting visible to true');
         setVisible(true);
       } else {
         setAccepted(true);
@@ -21,12 +24,15 @@ function CookieConsent() {
   }, []);
 
   const handleAccept = () => {
+    console.log('Cookie accepted');
     if (typeof window !== 'undefined') {
       localStorage.setItem('naastje_cookie_consent', 'accepted');
     }
     setAccepted(true);
     setVisible(false);
   };
+
+  console.log('CookieConsent rendering, visible:', visible, 'accepted:', accepted);
 
   if (!visible || accepted) return null;
 
