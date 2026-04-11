@@ -37,6 +37,25 @@ export default function DiscoverPage() {
     genderPreference: '',
   });
 
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(' ');
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return name.slice(0, 2).toUpperCase();
+  };
+
+  const renderPhoto = (photo: string, name: string, style: React.CSSProperties) => {
+    if (photo && photo.length > 0) {
+      return <img src={photo} alt={name} style={style} />;
+    }
+    return (
+      <div style={{ ...style, backgroundColor: '#c2410c', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ color: 'white', fontSize: '48px', fontWeight: 600 }}>{getInitials(name)}</span>
+      </div>
+    );
+  };
+
   const filteredUsers = users.filter(user => {
     if (!currentUser) return false;
     if (user.id === currentUser.id) return false;
@@ -314,11 +333,7 @@ export default function DiscoverPage() {
           <p style={{ color: 'white', opacity: 0.9, marginBottom: '24px', fontSize: '18px' }}>
             Jij en {matchedUser.name} hebben interesse in elkaar!
           </p>
-          <img 
-            src={matchedUser.photo} 
-            alt={matchedUser.name}
-            style={{ width: '150px', height: '150px', border: '4px solid white', borderRadius: '50%', marginBottom: '24px', objectFit: 'cover' }}
-          />
+          {renderPhoto(matchedUser.photo, matchedUser.name, { width: '150px', height: '150px', border: '4px solid white', borderRadius: '50%', marginBottom: '24px', objectFit: 'cover' })}
           <button 
             onClick={handleViewMatches} 
             style={{ 
@@ -360,11 +375,7 @@ export default function DiscoverPage() {
         position: 'relative',
       }}>
         <div style={{ position: 'relative', height: '320px' }}>
-          <img 
-            src={currentProfile.photo} 
-            alt={currentProfile.name}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
+          {renderPhoto(currentProfile.photo, currentProfile.name, { width: '100%', height: '100%', objectFit: 'cover' })}
           <div style={{
             position: 'absolute',
             bottom: 0,

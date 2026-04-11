@@ -107,17 +107,34 @@ export default function ChatPage() {
         >
           ←
         </button>
-        <img 
-          src={otherUser.photo} 
-          alt={otherUser.name}
-          style={{ 
+        {otherUser.photo && otherUser.photo.length > 0 ? (
+          <img 
+            src={otherUser.photo} 
+            alt={otherUser.name}
+            style={{ 
+              width: '44px', 
+              height: '44px', 
+              borderRadius: '50%', 
+              objectFit: 'cover',
+              border: '2px solid #fed7aa',
+            }} 
+          />
+        ) : (
+          <div style={{ 
             width: '44px', 
             height: '44px', 
             borderRadius: '50%', 
-            objectFit: 'cover',
+            backgroundColor: '#fed7aa',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             border: '2px solid #fed7aa',
-          }} 
-        />
+          }}>
+            <span style={{ color: '#c2410c', fontWeight: 600, fontSize: '16px' }}>
+              {otherUser.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+            </span>
+          </div>
+        )}
         <div>
           <h3 style={{ margin: 0, fontSize: '16px', color: '#1f2937' }}>{otherUser.name}</h3>
           <p style={{ margin: 0, fontSize: '13px', color: '#6b7280' }}>
