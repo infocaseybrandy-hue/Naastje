@@ -114,6 +114,28 @@ function RegisterForm() {
   const [taskScrollProgress, setTaskScrollProgress] = useState(0);
 
   const [step, setStep] = useState(1);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setPhotoPreview(result);
+        setFormData(prev => ({ ...prev, photo: result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(' ');
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return name.slice(0, 2).toUpperCase();
+  };
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -257,20 +279,39 @@ function RegisterForm() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '40px',
+                fontSize: '32px',
                 overflow: 'hidden',
+                flexShrink: 0,
               }}>
-                {formData.photo ? <img src={formData.photo} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : '📷'}
+                {photoPreview ? (
+                  <img src={photoPreview} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : formData.name ? (
+                  <span style={{ color: '#c2410c', fontWeight: 600, fontSize: '24px' }}>{getInitials(formData.name)}</span>
+                ) : (
+                  '📷'
+                )}
               </div>
-              <input
-                type="text"
-                name="photo"
-                value={formData.photo}
-                onChange={handleChange}
-                className="input-field"
-                placeholder="Foto URL (of we gebruiken standaard)"
-                style={{ flex: 1 }}
-              />
+              <label style={{
+                flex: 1,
+                padding: '12px 16px',
+                border: '2px dashed #fed7aa',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: '#c2410c',
+                backgroundColor: '#fff7ed',
+              }}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                  style={{ display: 'none' }}
+                />
+                <span style={{ fontSize: '20px' }}>📸</span>
+                <span style={{ fontSize: '14px' }}>Kies een foto van je apparaat</span>
+              </label>
             </div>
           </div>
 

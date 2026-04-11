@@ -16,6 +16,13 @@ const SUBTYPE_LABELS: Record<string, string> = {
   vrijwilliger: 'Vrijwilliger',
 };
 
+interface FilterState {
+  search: string;
+  maxDistance: number;
+  categories: string[];
+  genderPreference: string;
+}
+
 export default function DiscoverPage() {
   const router = useRouter();
   const { currentUser, users, swipe, swipes } = useApp();
@@ -23,15 +30,42 @@ export default function DiscoverPage() {
   const [showMatch, setShowMatch] = useState(false);
   const [matchedUser, setMatchedUser] = useState<User | null>(null);
   const [showFilter, setShowFilter] = useState(false);
+  const [filters, setFilters] = useState<FilterState>({
+    search: '',
+    maxDistance: 50,
+    categories: [],
+    genderPreference: '',
+  });
 
-  const potentialUsers = users.filter(user => {
+  const filteredUsers = users.filter(user => {
     if (!currentUser) return false;
     if (user.id === currentUser.id) return false;
     if (user.type === currentUser.type) return false;
     
     const hasSwiped = swipes.some(s => s.fromUserId === currentUser.id && s.toUserId === user.id);
-    return !hasSwiped;
+    if (hasSwiped) return false;
+
+    if (filters.search) {
+      const searchLower = filters.search.toLowerCase();
+      if (!user.location.toLowerCase().includes(searchLower)) {
+        return false;
+      }
+    }
+
+    if (filters.genderPreference && user.gender !== filters.genderPreference) {
+      return false;
+    }
+
+    if (filters.categories.length > 0) {
+      const userCategories = user.categories || [];
+      const hasMatch = filters.categories.some(cat => userCategories.includes(cat));
+      if (!hasMatch) return false;
+    }
+
+    return true;
   });
+
+  const potentialUsers = filteredUsers;
 
   const handleSwipe = (direction: 'left' | 'right') => {
     if (currentIndex >= potentialUsers.length) return;
@@ -60,11 +94,29 @@ export default function DiscoverPage() {
     router.push('/app/matches');
   };
 
+  const handleCategoryToggle = (catId: string) => {
+    setFilters(prev => ({
+      ...prev,
+      categories: prev.categories.includes(catId)
+        ? prev.categories.filter(c => c !== catId)
+        : [...prev.categories, catId]
+    }));
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      search: '',
+      maxDistance: 50,
+      categories: [],
+      genderPreference: '',
+    });
+  };
+
   if (!currentUser) return null;
 
   if (currentIndex >= potentialUsers.length) {
     return (
-      <div style={{ padding: '24px', textAlign: 'center' }}>
+      <div style={{ padding: '24px', textAlign: 'center', paddingBottom: '80px' }}>
         <div style={{ fontSize: '64px', marginBottom: '16px' }}>🎉</div>
         <h2 style={{ marginBottom: '16px', color: '#c2410c' }}>Je hebt alle profielen gezien!</h2>
         <p style={{ color: '#6b7280', marginBottom: '24px' }}>
@@ -114,13 +166,131 @@ export default function DiscoverPage() {
           maxWidth: '400px',
           backgroundColor: 'white',
           borderRadius: '16px',
-          padding: '16px',
+          padding: '20px',
           marginBottom: '16px',
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
         }}>
-          <p style={{ fontSize: '13px', color: '#6b7280', textAlign: 'center' }}>
-            Filters binnenkort beschikbaar — filter op locatie, beschikbaarheid en meer
-          </p>
+          <h3 style={{ color: '#c2410c', marginBottom: '16px', fontSize: '16px' }}>Filters</h3>
+          
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>Stad of postcode</label>
+            <input
+              type="text"
+              value={filters.search}
+              onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
+              placeholder="Bijv. Amsterdam of 1011"
+              style={{
+                width: '100%',
+                padding: '12px',
+                border: '2px solid #e5e7eb',
+                borderRadius: '12px',
+                fontSize: '14px',
+                boxSizing: 'border-box',
+              }}
+            />
+          </div>
+
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>Maximale reisafstand</label>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              {[5, 10, 20, 50].map(dist => (
+                <button
+                  key={dist}
+                  onClick={() => setFilters(prev => ({ ...prev, maxDistance: dist }))}
+                  style={{
+                    flex: 1,
+                    padding: '10px',
+                    border: filters.maxDistance === dist ? '2px solid #f97316' : '2px solid #e5e7eb',
+                    borderRadius: '10px',
+                    backgroundColor: filters.maxDistance === dist ? '#fff7ed' : 'white',
+                    color: filters.maxDistance === dist ? '#c2410c' : '#6b7280',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                  }}
+                >
+                  {dist} km
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>Geslachtsvoorkeur</label>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              {[
+                { value: '', label: 'Geen voorkeur' },
+                { value: 'vrouw', label: 'Vrouw' },
+                { value: 'man', label: 'Man' },
+              ].map(opt => (
+                <button
+                  key={opt.value}
+                  onClick={() => setFilters(prev => ({ ...prev, genderPreference: opt.value }))}
+                  style={{
+                    flex: 1,
+                    padding: '10px',
+                    border: filters.genderPreference === opt.value ? '2px solid #f97316' : '2px solid #e5e7eb',
+                    borderRadius: '10px',
+                    backgroundColor: filters.genderPreference === opt.value ? '#fff7ed' : 'white',
+                    color: filters.genderPreference === opt.value ? '#c2410c' : '#6b7280',
+                    cursor: 'pointer',
+                    fontSize: '13px',
+                  }}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>Zorgcategorieën</label>
+            <div style={{ maxHeight: '150px', overflowY: 'auto' }}>
+              {ZORG_CATEGORIES.map(cat => (
+                <label key={cat.id} style={{ display: 'flex', alignItems: 'center', padding: '8px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={filters.categories.includes(cat.id)}
+                    onChange={() => handleCategoryToggle(cat.id)}
+                    style={{ marginRight: '10px', width: '18px', height: '18px', accentColor: '#f97316' }}
+                  />
+                  <span style={{ fontSize: '16px', marginRight: '8px' }}>{cat.icon}</span>
+                  <span style={{ fontSize: '14px' }}>{cat.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <button
+              onClick={() => setShowFilter(false)}
+              style={{
+                flex: 1,
+                padding: '12px',
+                backgroundColor: '#f97316',
+                color: 'white',
+                border: 'none',
+                borderRadius: '12px',
+                fontSize: '14px',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              Toepassen
+            </button>
+            <button
+              onClick={resetFilters}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#6b7280',
+                fontSize: '14px',
+                cursor: 'pointer',
+                textDecoration: 'underline',
+              }}
+            >
+              Reset
+            </button>
+          </div>
         </div>
       )}
 
@@ -265,8 +435,8 @@ export default function DiscoverPage() {
                   <span 
                     key={cat.id}
                     style={{ 
-                      backgroundColor: '#fef3c7', 
-                      color: '#92400e', 
+                      backgroundColor: '#fff7ed', 
+                      color: '#c2410c', 
                       padding: '4px 10px', 
                       borderRadius: '12px', 
                       fontSize: '12px',

@@ -21,56 +21,111 @@ export default function MatchesPage() {
 
   if (!currentUser) return null;
 
+  if (userMatches.length === 0) {
+    return (
+      <div style={{ 
+        padding: '24px', 
+        textAlign: 'center', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 'calc(100vh - 160px)',
+        paddingBottom: '80px',
+      }}>
+        <div style={{ fontSize: '64px', marginBottom: '16px' }}>💛</div>
+        <h2 style={{ marginBottom: '12px', color: '#c2410c', fontSize: '20px' }}>Nog geen matches</h2>
+        <p style={{ color: '#6b7280', fontSize: '14px', marginBottom: '24px' }}>
+          Blijf swipen om matches te maken!
+        </p>
+        <button 
+          onClick={() => router.push('/app/discover')}
+          style={{
+            padding: '14px 32px',
+            backgroundColor: '#f97316',
+            color: 'white',
+            border: 'none',
+            borderRadius: '30px',
+            fontSize: '16px',
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
+        >
+          Profielen ontdekken
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div style={{ padding: '24px' }}>
-      <h1 style={{ marginBottom: '24px', color: 'var(--primary)' }}>Jouw Matches</h1>
+    <div style={{ padding: '16px', paddingBottom: '80px' }}>
+      <h1 style={{ marginBottom: '20px', color: '#c2410c', fontSize: '20px' }}>Jouw Matches</h1>
 
-      {userMatches.length === 0 ? (
-        <div className="empty-state">
-          <div className="empty-state-icon">💜</div>
-          <h3 style={{ marginBottom: '8px' }}>Nog geen matches</h3>
-          <p>Swipe naar rechts om matches te maken!</p>
-          <button 
-            onClick={() => router.push('/app/discover')}
-            className="btn-primary"
-            style={{ marginTop: '24px' }}
-          >
-            Ontdekken
-          </button>
-        </div>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {userMatches.map(match => {
-            const matchUser = getMatchUser(match);
-            const lastMessage = getLastMessage(match.id);
-            
-            if (!matchUser) return null;
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {userMatches.map(match => {
+          const matchUser = getMatchUser(match);
+          const lastMessage = getLastMessage(match.id);
+          
+          if (!matchUser) return null;
 
-            return (
-              <div 
-                key={match.id}
-                className="match-card"
-                onClick={() => router.push(`/app/chat/${match.id}`)}
-                style={{ backgroundColor: 'white' }}
-              >
-                <img 
-                  src={matchUser.photo} 
-                  alt={matchUser.name}
-                  className="avatar-md"
-                  style={{ border: '3px solid var(--primary)' }}
-                />
-                <div style={{ flex: 1 }}>
-                  <h3 style={{ marginBottom: '4px' }}>{matchUser.name}</h3>
-                  <p className="message-preview">
-                    {lastMessage ? lastMessage.content : 'Nog geen berichten'}
-                  </p>
+          return (
+            <div 
+              key={match.id}
+              onClick={() => router.push(`/app/chat/${match.id}`)}
+              style={{ 
+                backgroundColor: 'white',
+                borderRadius: '16px',
+                padding: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                cursor: 'pointer',
+              }}
+            >
+              <img 
+                src={matchUser.photo} 
+                alt={matchUser.name}
+                style={{ 
+                  width: '56px', 
+                  height: '56px', 
+                  borderRadius: '50%', 
+                  objectFit: 'cover',
+                  border: '3px solid #fed7aa',
+                }}
+              />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                  <h3 style={{ margin: 0, fontSize: '16px', color: '#1f2937' }}>{matchUser.name}</h3>
                 </div>
-                <span style={{ color: 'var(--text-secondary)' }}>→</span>
+                <p style={{ margin: 0, fontSize: '13px', color: '#6b7280' }}>📍 {matchUser.location}</p>
+                <p style={{ margin: '4px 0 0', fontSize: '13px', color: lastMessage ? '#4b5563' : '#9ca3af', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  {lastMessage ? lastMessage.content : 'Nog geen berichten'}
+                </p>
               </div>
-            );
-          })}
-        </div>
-      )}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push(`/app/chat/${match.id}`);
+                }}
+                style={{
+                  padding: '10px 16px',
+                  backgroundColor: '#f97316',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '20px',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                Bericht
+              </button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
