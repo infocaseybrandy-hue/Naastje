@@ -63,7 +63,7 @@ function CookieConsent() {
             Akkoord
           </button>
           <a 
-            href="#"
+            href="/privacy"
             style={{ 
               display: 'flex', 
               alignItems: 'center', 
@@ -71,12 +71,8 @@ function CookieConsent() {
               textDecoration: 'underline',
               fontSize: '14px'
             }}
-            onClick={(e) => {
-              e.preventDefault();
-              alert('Lees meer over ons privacybeleid op onze website.');
-            }}
           >
-            Meer info
+            Privacyverklaring
           </a>
         </div>
       </div>
@@ -93,6 +89,19 @@ export default function Home() {
   const [error, setError] = useState('');
 
   const handleLogin = () => {
+    if (!email.trim()) {
+      setError('Voer je e-mailadres in');
+      return;
+    }
+    if (!password.trim()) {
+      setError('Voer je wachtwoord in');
+      return;
+    }
+    if (password.length < 6) {
+      setError('Wachtwoord moet minstens 6 tekens zijn');
+      return;
+    }
+    
     const user = users.find(u => u.email === email);
     if (user) {
       login(user);
@@ -325,6 +334,22 @@ export default function Home() {
               >
                 Inloggen
               </button>
+
+              <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+                <button 
+                  onClick={() => router.push('/wachtwoord-vergeten')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#c2410c',
+                    fontSize: '14px',
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Wachtwoord vergeten?
+                </button>
+              </div>
             </>
           )}
         </div>
