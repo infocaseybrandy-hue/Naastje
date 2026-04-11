@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { User, Match, Message, Swipe, UserType } from '@/types';
 import { mockUsers, generateId } from '@/data/mockUsers';
 
@@ -24,44 +24,63 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [currentUser, setCurrentUser] = useState<User | null>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('naastje_user');
-      return saved ? JSON.parse(saved) : null;
-    }
-    return null;
-  });
+  const mountedRef = useRef(false);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>(mockUsers);
-  const [matches, setMatches] = useState<Match[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('naastje_matches');
-      return saved ? JSON.parse(saved) : [];
-    }
-    return [];
-  });
-  const [messages, setMessages] = useState<Message[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('naastje_messages');
-      return saved ? JSON.parse(saved) : [];
-    }
-    return [];
-  });
-  const [swipes, setSwipes] = useState<Swipe[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('naastje_swipes');
-      return saved ? JSON.parse(saved) : [];
-    }
-    return [];
-  });
+  const [matches, setMatches] = useState<Match[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [swipes, setSwipes] = useState<Swipe[]>([]);
 
   useEffect(() => {
+    mountedRef.current = true;
+    
     if (typeof window !== 'undefined') {
+      const savedUser = localStorage.getItem('naastje_user');
+      const savedMatches = localStorage.getItem('naastje_matches');
+      const savedMessages = localStorage.getItem('naastje_messages');
+      const savedSwipes = localStorage.getItem('naastje_swipes');
+      
+      if (mountedRef.current) {
+        if (savedUser) {
+          try {
+            setCurrentUser(JSON.parse(savedUser));
+          } catch (e) {
+            console.error('Failed to parse user:', e);
+          }
+        }
+        if (savedMatches) {
+          try {
+            setMatches(JSON.parse(savedMatches));
+          } catch (e) {
+            console.error('Failed to parse matches:', e);
+          }
+        }
+        if (savedMessages) {
+          try {
+            setMessages(JSON.parse(savedMessages));
+          } catch (e) {
+            console.error('Failed to parse messages:', e);
+          }
+        }
+        if (savedSwipes) {
+          try {
+            setSwipes(JSON.parse(savedSwipes));
+          } catch (e) {
+            console.error('Failed to parse swipes:', e);
+          }
+        }
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (mountedRef.current && typeof window !== 'undefined') {
       localStorage.setItem('naastje_user', JSON.stringify(currentUser));
     }
   }, [currentUser]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (mountedRef.current && typeof window !== 'undefined') {
       localStorage.setItem('naastje_matches', JSON.stringify(matches));
       localStorage.setItem('naastje_messages', JSON.stringify(messages));
       localStorage.setItem('naastje_swipes', JSON.stringify(swipes));
