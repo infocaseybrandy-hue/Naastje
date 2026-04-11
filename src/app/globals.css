@@ -244,13 +244,6 @@ body {
   padding-bottom: 90px;
 }
 
-@media (min-width: 768px) {
-  .main-content {
-    padding-bottom: 0;
-    padding-left: 260px;
-  }
-}
-
 /* Navigation */
 .nav-bar {
   position: fixed;
@@ -264,21 +257,6 @@ body {
   justify-content: space-around;
   padding: 14px 0;
   z-index: 100;
-}
-
-@media (min-width: 768px) {
-  .nav-bar {
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: auto;
-    width: 260px;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 28px 20px;
-    gap: 10px;
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
-  }
 }
 
 .nav-item {
