@@ -154,11 +154,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSwipes(prev => [...prev, newSwipe]);
 
     if (direction === 'right') {
-      const otherUserSwipedRight = swipes.find(
-        s => s.toUserId === currentUser.id && s.fromUserId === toUserId && s.direction === 'right'
+      const existingMatch = matches.find(
+        m => (m.user1 === currentUser.id && m.user2 === toUserId) ||
+             (m.user2 === currentUser.id && m.user1 === toUserId)
       );
 
-      if (otherUserSwipedRight) {
+      if (!existingMatch) {
         const newMatch: Match = {
           id: generateId(),
           user1: currentUser.id,
@@ -169,6 +170,32 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
     }
   };
+
+  const initialDataLoaded = useRef(false);
+
+  useEffect(() => {
+    if (mountedRef.current && currentUser && !initialDataLoaded.current) {
+      initialDataLoaded.current = true;
+      const updatedMatches = matches.map(m => {
+        if (m.user1 === 'current') {
+          return { ...m, user1: currentUser.id };
+        }
+        if (m.user2 === 'current') {
+          return { ...m, user2: currentUser.id };
+        }
+        return m;
+      });
+      setMatches(updatedMatches);
+
+      const updatedMessages = messages.map(msg => {
+        if (msg.fromUserId === 'current') {
+          return { ...msg, fromUserId: currentUser.id };
+        }
+        return msg;
+      });
+      setMessages(updatedMessages);
+    }
+  }, [currentUser]);
 
   const getMatches = (): Match[] => {
     if (!currentUser) return [];

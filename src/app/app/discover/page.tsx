@@ -93,14 +93,8 @@ export default function DiscoverPage() {
     swipe(targetUser.id, direction);
 
     if (direction === 'right') {
-      const otherSwipedRight = swipes.some(
-        s => s.toUserId === currentUser?.id && s.fromUserId === targetUser.id && s.direction === 'right'
-      );
-      
-      if (otherSwipedRight) {
-        setMatchedUser(targetUser);
-        setShowMatch(true);
-      }
+      setMatchedUser(targetUser);
+      setShowMatch(true);
     }
 
     setTimeout(() => {
