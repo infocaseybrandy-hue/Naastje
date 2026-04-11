@@ -4,22 +4,17 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 function CookieConsent() {
-  const [visible, setVisible] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('naastje_cookie_consent') === null;
-    }
-    return false;
-  });
-  const [accepted, setAccepted] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('naastje_cookie_consent') !== null;
-    }
-    return true;
-  });
+  const [visible, setVisible] = useState(false);
+  const [accepted, setAccepted] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.getItem('naastje_cookie_consent');
+      const saved = localStorage.getItem('naastje_cookie_consent');
+      if (!saved) {
+        setVisible(true);
+      } else {
+        setAccepted(true);
+      }
     }
   }, []);
 
