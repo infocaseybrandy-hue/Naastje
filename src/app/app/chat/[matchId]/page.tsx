@@ -83,7 +83,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 80px)', paddingBottom: '80px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 80px)', paddingBottom: '80px', maxWidth: '600px', margin: '0 auto', width: '100%' }}>
       <div style={{ 
         padding: '16px 20px', 
         borderBottom: '1px solid #e5e7eb', 
