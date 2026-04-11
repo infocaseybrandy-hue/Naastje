@@ -187,21 +187,6 @@ export default function ProfilePage() {
             </button>
           </div>
         )}
-
-        {isZorgzoeker && (
-          <div style={{ marginTop: '12px' }}>
-            <span style={{
-              backgroundColor: '#ecfdf5',
-              color: '#059669',
-              padding: '6px 16px',
-              borderRadius: '20px',
-              fontSize: '13px',
-              fontWeight: 500,
-            }}>
-              🏠 Gratis
-            </span>
-          </div>
-        )}
       </div>
 
       <div style={{ 

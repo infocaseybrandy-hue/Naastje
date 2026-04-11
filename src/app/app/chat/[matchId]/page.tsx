@@ -156,48 +156,62 @@ export default function ChatPage() {
       )}
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px' }}>
-        <div style={{ textAlign: 'center', padding: '24px', color: '#6b7280' }}>
-          <div style={{ fontSize: '48px', marginBottom: '12px' }}>💛</div>
-          <p style={{ margin: 0 }}>
-            Jullie hebben een match! Begin een gesprek.
-          </p>
-        </div>
+        {messages.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '24px', color: '#6b7280' }}>
+            <div style={{ fontSize: '48px', marginBottom: '12px' }}>💛</div>
+            <p style={{ margin: 0, marginBottom: '16px' }}>
+              Jullie hebben een match! Begin een gesprek.
+            </p>
+            <div style={{ 
+              backgroundColor: '#f3f4f6', 
+              padding: '16px', 
+              borderRadius: '16px', 
+              textAlign: 'left',
+              maxWidth: '80%',
+              margin: '0 auto',
+            }}>
+              <p style={{ margin: 0, color: '#374151', fontSize: '14px' }}>
+                👋 Hoi! Ik zag je profiel en zou graag kennismaken. Laten we even kennismaken?
+              </p>
+            </div>
+          </div>
+        ) : (
+          messages.map(msg => {
+            const isSent = msg.fromUserId === currentUser.id;
+            const messageText = isSent 
+              ? msg.content 
+              : filterContactInfo(msg.content, isPremium, false);
+            
+            const showBlurred = !isSent && !isPremium && containsContactInfo(msg.content);
 
-        {messages.map(msg => {
-          const isSent = msg.fromUserId === currentUser.id;
-          const messageText = isSent 
-            ? msg.content 
-            : filterContactInfo(msg.content, isPremium, false);
-          
-          const showBlurred = !isSent && !isPremium && containsContactInfo(msg.content);
-
-          return (
-            <div 
-              key={msg.id}
-              style={{
-                display: 'flex',
-                justifyContent: isSent ? 'flex-end' : 'flex-start',
-                marginBottom: '12px',
-              }}
-            >
+            return (
               <div 
+                key={msg.id}
                 style={{
-                  maxWidth: '75%',
-                  padding: '12px 16px',
-                  borderRadius: '18px',
-                  backgroundColor: isSent ? '#f97316' : 'white',
-                  color: isSent ? 'white' : '#1f2937',
-                  boxShadow: isSent ? 'none' : '0 1px 3px rgba(0,0,0,0.1)',
-                  fontSize: '14px',
-                  lineHeight: 1.4,
-                  wordBreak: 'break-word',
+                  display: 'flex',
+                  justifyContent: isSent ? 'flex-end' : 'flex-start',
+                  marginBottom: '12px',
                 }}
               >
-                {messageText}
+                <div 
+                  style={{
+                    maxWidth: '75%',
+                    padding: '12px 16px',
+                    borderRadius: '18px',
+                    backgroundColor: isSent ? '#f97316' : 'white',
+                    color: isSent ? 'white' : '#1f2937',
+                    boxShadow: isSent ? 'none' : '0 1px 3px rgba(0,0,0,0.1)',
+                    fontSize: '14px',
+                    lineHeight: 1.4,
+                    wordBreak: 'break-word',
+                  }}
+                >
+                  {messageText}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
         <div ref={messagesEndRef} />
       </div>
 

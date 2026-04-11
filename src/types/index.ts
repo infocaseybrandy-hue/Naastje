@@ -100,6 +100,7 @@ export interface User {
   location: string;
   gender?: Gender;
   religion?: string;
+  birthDate?: string;
   interests: string[];
   availabilityHours?: number;
   availabilityTimes: AvailabilityTime[];

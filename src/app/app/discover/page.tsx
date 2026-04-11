@@ -376,6 +376,17 @@ export default function DiscoverPage() {
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '4px' }}>
               <h2 style={{ color: 'white', fontSize: '24px', margin: 0 }}>{currentProfile.name}</h2>
+              {currentProfile.birthDate && (
+                <span style={{
+                  backgroundColor: 'rgba(255,255,255,0.2)',
+                  color: 'white',
+                  padding: '4px 10px',
+                  borderRadius: '12px',
+                  fontSize: '12px',
+                }}>
+                  {currentProfile.birthDate}
+                </span>
+              )}
               {currentProfile.subtype && (
                 <span style={{
                   backgroundColor: 'rgba(255,255,255,0.2)',
@@ -388,9 +399,14 @@ export default function DiscoverPage() {
                 </span>
               )}
             </div>
-            <p style={{ color: 'rgba(255,255,255,0.9)', marginBottom: '8px', fontSize: '14px' }}>
+            <p style={{ color: 'rgba(255,255,255,0.9)', marginBottom: '4px', fontSize: '14px' }}>
               📍 {currentProfile.location}
             </p>
+            {currentProfile.religion && (
+              <p style={{ color: 'rgba(255,255,255,0.85)', marginBottom: '4px', fontSize: '12px' }}>
+                🕊️ {currentProfile.religion}
+              </p>
+            )}
             <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '13px' }}>
               ⏰ {currentProfile.availabilityHours} uur/week • {currentProfile.gender}
             </p>
@@ -457,20 +473,6 @@ export default function DiscoverPage() {
               </div>
             </div>
           )}
-
-          {currentProfile.religion && (
-            <div style={{ marginBottom: '8px' }}>
-              <span style={{ 
-                backgroundColor: '#f3f4f6', 
-                color: '#4b5563', 
-                padding: '4px 10px', 
-                borderRadius: '12px', 
-                fontSize: '12px',
-              }}>
-                🕊️ {currentProfile.religion}
-              </span>
-            </div>
-          )}
         </div>
       </div>
 
@@ -514,7 +516,7 @@ export default function DiscoverPage() {
       </div>
 
       <p style={{ color: '#9ca3af', fontSize: '13px', marginTop: '16px' }}>
-        {currentIndex + 1} van {potentialUsers.length} profielen
+        Profiel {currentIndex + 1} van {potentialUsers.length} — swipe of gebruik de knoppen
       </p>
     </div>
   );
