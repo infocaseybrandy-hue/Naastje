@@ -89,7 +89,7 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email.trim()) {
       setError('Voer je e-mailadres in');
       return;
@@ -103,12 +103,11 @@ export default function Home() {
       return;
     }
     
-    const user = users.find(u => u.email === email);
-    if (user) {
-      login(user);
+    const success = await login(email, password);
+    if (success) {
       router.push('/app');
     } else {
-      setError('Geen account gevonden met dit e-mailadres');
+      setError('Inloggen mislukt. Controleer je e-mail en wachtwoord.');
     }
   };
 
@@ -122,7 +121,6 @@ export default function Home() {
       : users.find(u => u.type === 'zorgaanbieder' && !u.isPremium);
     
     if (demoUser) {
-      login(demoUser);
       router.push('/app');
     }
   };

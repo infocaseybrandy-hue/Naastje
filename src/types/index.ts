@@ -139,3 +139,26 @@ export interface Swipe {
   toUserId: string;
   direction: 'left' | 'right';
 }
+
+export interface Post {
+  id: string;
+  userId: string;
+  userName: string;
+  userPhoto: string;
+  content: string;
+  image?: string;
+  likesCount: number;
+  commentsCount: number;
+  createdAt: Date;
+  liked?: boolean;
+}
+
+export interface Comment {
+  id: string;
+  postId: string;
+  userId: string;
+  userName: string;
+  userPhoto: string;
+  content: string;
+  createdAt: Date;
+}

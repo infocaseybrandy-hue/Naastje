@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 const navItems = [
   { href: '/app/discover', icon: '🔍', label: 'Ontdekken' },
+  { href: '/app/berichten', icon: '📝', label: 'Berichten' },
   { href: '/app/matches', icon: '❤️', label: 'Matches' },
   { href: '/app/profile', icon: '👤', label: 'Profiel' },
 ];

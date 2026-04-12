@@ -224,8 +224,8 @@ function RegisterForm() {
     else if (step === 3 && validateStep3()) setStep(4);
   };
 
-  const handleSubmit = () => {
-    const user = register({
+  const handleSubmit = async () => {
+    const user = await register({
       name: formData.name,
       email: formData.email,
       gender: formData.gender as any,
@@ -246,7 +246,7 @@ function RegisterForm() {
       needCleaningSupplies: formData.needCleaningSupplies,
       searchTasks: formData.searchTasks,
       otherNotes: formData.otherNotes || undefined,
-    }, userType);
+    }, userType, formData.password);
 
     if (user) router.push('/app');
   };
