@@ -112,7 +112,7 @@ export default function MatchesPage() {
                   width: '56px',
                   height: '56px',
                   borderRadius: '50%',
-                  backgroundColor: '#E8763A',
+                  backgroundColor: '#1B8C82',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',

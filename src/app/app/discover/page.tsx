@@ -50,7 +50,7 @@ export default function DiscoverPage() {
       return <img src={photo} alt={name} style={style} />;
     }
     return (
-      <div style={{ ...style, backgroundColor: '#E8763A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '64px', fontWeight: '500', color: 'white' }}>
+      <div style={{ ...style, backgroundColor: '#1B8C82', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '64px', fontWeight: '500', color: 'white' }}>
         {name?.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
       </div>
     );

@@ -129,7 +129,7 @@ export default function ProfilePage() {
           borderRadius: '50%',
           margin: '0 auto 16px',
           overflow: 'hidden',
-          backgroundColor: '#E8763A',
+          backgroundColor: '#1B8C82',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
