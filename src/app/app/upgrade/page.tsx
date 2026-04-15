@@ -54,7 +54,7 @@ export default function UpgradePage() {
           onClick={() => router.push('/app/matches')}
           style={{
             padding: '14px 32px',
-            backgroundColor: '#f97316',
+            backgroundColor: '#1B8C82',
             color: 'white',
             border: 'none',
             borderRadius: '12px',
@@ -95,7 +95,7 @@ export default function UpgradePage() {
           alignItems: 'center', 
           gap: '12px', 
           padding: '16px', 
-          border: paymentMethod === 'ideal' ? '2px solid #f97316' : '2px solid #e5e7eb',
+          border: paymentMethod === 'ideal' ? '2px solid #1B8C82' : '2px solid #e5e7eb',
           borderRadius: '12px',
           marginBottom: '12px',
           cursor: 'pointer',
@@ -106,7 +106,7 @@ export default function UpgradePage() {
             name="payment" 
             checked={paymentMethod === 'ideal'}
             onChange={() => { setPaymentMethod('ideal'); setSelectedBank(''); }}
-            style={{ accentColor: '#f97316' }}
+            style={{ accentColor: '#1B8C82' }}
           />
           <span style={{ fontSize: '24px' }}>🏦</span>
           <div>
@@ -120,7 +120,7 @@ export default function UpgradePage() {
           alignItems: 'center', 
           gap: '12px', 
           padding: '16px', 
-          border: paymentMethod === 'incasso' ? '2px solid #f97316' : '2px solid #e5e7eb',
+          border: paymentMethod === 'incasso' ? '2px solid #1B8C82' : '2px solid #e5e7eb',
           borderRadius: '12px',
           cursor: 'pointer',
           backgroundColor: paymentMethod === 'incasso' ? '#fff7ed' : 'white',
@@ -130,7 +130,7 @@ export default function UpgradePage() {
             name="payment" 
             checked={paymentMethod === 'incasso'}
             onChange={() => { setPaymentMethod('incasso'); setSelectedBank(''); }}
-            style={{ accentColor: '#f97316' }}
+            style={{ accentColor: '#1B8C82' }}
           />
           <span style={{ fontSize: '24px' }}>📝</span>
           <div>
@@ -150,7 +150,7 @@ export default function UpgradePage() {
                 onClick={() => { setSelectedBank(bank.id); setShowBankSelect(false); }}
                 style={{
                   padding: '12px',
-                  border: selectedBank === bank.id ? '2px solid #f97316' : '2px solid #e5e7eb',
+                  border: selectedBank === bank.id ? '2px solid #1B8C82' : '2px solid #e5e7eb',
                   borderRadius: '8px',
                   backgroundColor: selectedBank === bank.id ? '#fff7ed' : 'white',
                   cursor: 'pointer',
@@ -171,7 +171,7 @@ export default function UpgradePage() {
           width: '100%', 
           padding: '16px', 
           fontSize: '18px',
-          backgroundColor: isProcessing ? '#9ca3af' : '#f97316',
+          backgroundColor: isProcessing ? '#9ca3af' : '#1B8C82',
           color: 'white',
           border: 'none',
           borderRadius: '12px',

@@ -103,7 +103,7 @@ export default function ProfilePage() {
             style={{
               padding: '8px 16px',
               backgroundColor: 'white',
-              border: '2px solid #f97316',
+              border: '2px solid #1B8C82',
               borderRadius: '20px',
               color: '#c2410c',
               fontSize: '14px',
@@ -177,7 +177,7 @@ export default function ProfilePage() {
               onClick={() => router.push('/app/upgrade')}
               style={{
                 padding: '8px 20px',
-                backgroundColor: '#f97316',
+                backgroundColor: '#1B8C82',
                 color: 'white',
                 border: 'none',
                 borderRadius: '20px',
@@ -396,7 +396,7 @@ export default function ProfilePage() {
             style={{
               flex: 1,
               padding: '14px',
-              backgroundColor: '#f97316',
+              backgroundColor: '#1B8C82',
               color: 'white',
               border: 'none',
               borderRadius: '12px',

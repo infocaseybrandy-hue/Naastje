@@ -59,7 +59,7 @@ function CookieConsent() {
           <button 
             onClick={handleAccept}
             className="btn-primary"
-            style={{ padding: '12px 32px', background: '#f97316' }}
+            style={{ padding: '12px 32px', background: '#1B8C82' }}
           >
             Akkoord
           </button>
@@ -216,7 +216,7 @@ export default function Home() {
                   width: '100%', 
                   marginBottom: '12px', 
                   padding: '20px',
-                  background: '#f97316',
+                  background: '#1B8C82',
                   border: 'none',
                 }}
               >
@@ -235,7 +235,7 @@ export default function Home() {
                   marginBottom: '16px', 
                   padding: '20px',
                   background: 'white',
-                  border: '2px solid #f97316',
+                  border: '2px solid #1B8C82',
                   color: '#c2410c',
                 }}
               >
@@ -329,7 +329,7 @@ export default function Home() {
               <button 
                 onClick={handleLogin}
                 className="btn-primary"
-                style={{ width: '100%', marginBottom: '16px', background: '#f97316', border: 'none' }}
+                style={{ width: '100%', marginBottom: '16px', background: '#1B8C82', border: 'none' }}
               >
                 Inloggen
               </button>

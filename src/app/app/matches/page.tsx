@@ -52,7 +52,7 @@ export default function MatchesPage() {
           onClick={() => router.push('/app/discover')}
           style={{
             padding: '14px 32px',
-            backgroundColor: '#f97316',
+            backgroundColor: '#1B8C82',
             color: 'white',
             border: 'none',
             borderRadius: '30px',
@@ -140,7 +140,7 @@ export default function MatchesPage() {
                 }}
                 style={{
                   padding: '10px 16px',
-                  backgroundColor: '#f97316',
+                  backgroundColor: '#1B8C82',
                   color: 'white',
                   border: 'none',
                   borderRadius: '20px',

@@ -51,7 +51,7 @@ function CookieConsent() {
         <button 
           onClick={handleAccept}
           className="btn-primary"
-          style={{ padding: '12px 32px', background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)' }}
+          style={{ padding: '12px 32px', background: 'linear-gradient(135deg, #1B8C82 0%, #fb923c 100%)' }}
         >
           Akkoord
         </button>
@@ -152,7 +152,7 @@ export default function HoeWerktHetPage() {
                 width: '50px',
                 height: '50px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                background: 'linear-gradient(135deg, #1B8C82 0%, #fb923c 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -192,7 +192,7 @@ export default function HoeWerktHetPage() {
               className="btn-primary"
               style={{ 
                 width: '100%', 
-                background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                background: 'linear-gradient(135deg, #1B8C82 0%, #fb923c 100%)',
                 padding: '16px',
                 fontSize: '16px',
               }}

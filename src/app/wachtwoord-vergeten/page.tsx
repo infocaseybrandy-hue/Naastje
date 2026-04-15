@@ -90,7 +90,7 @@ export default function WachtwoordVergetenPage() {
                 style={{
                   width: '100%',
                   padding: '14px',
-                  backgroundColor: '#f97316',
+                  backgroundColor: '#1B8C82',
                   color: 'white',
                   border: 'none',
                   borderRadius: '12px',
@@ -116,7 +116,7 @@ export default function WachtwoordVergetenPage() {
               onClick={() => router.push('/')}
               style={{
                 padding: '12px 24px',
-                backgroundColor: '#f97316',
+                backgroundColor: '#1B8C82',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',

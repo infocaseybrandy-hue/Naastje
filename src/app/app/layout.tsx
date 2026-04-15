@@ -69,7 +69,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               padding: '8px 16px',
               borderRadius: '12px',
               textDecoration: 'none',
-              color: pathname === item.href ? '#f97316' : '#6b7280',
+              color: pathname === item.href ? '#1B8C82' : '#6b7280',
               backgroundColor: pathname === item.href ? '#fff7ed' : 'transparent',
               fontSize: '12px',
             }}

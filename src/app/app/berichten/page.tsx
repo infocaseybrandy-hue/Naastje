@@ -81,7 +81,7 @@ function PostCard({ post, onLike, onComment }: { post: Post; onLike: () => void;
             background: 'none', 
             border: 'none', 
             cursor: 'pointer',
-            color: post.liked ? '#f97316' : '#6b7280',
+            color: post.liked ? '#1B8C82' : '#6b7280',
             fontSize: '14px',
           }}
         >
@@ -190,7 +190,7 @@ export default function BerichtenPage() {
             style={{
               marginTop: '12px',
               padding: '12px 24px',
-              backgroundColor: newPost.trim() ? '#f97316' : '#d1d5db',
+              backgroundColor: newPost.trim() ? '#1B8C82' : '#d1d5db',
               color: 'white',
               border: 'none',
               borderRadius: '12px',
@@ -287,7 +287,7 @@ export default function BerichtenPage() {
                       disabled={!newComment.trim()}
                       style={{
                         padding: '10px 16px',
-                        backgroundColor: newComment.trim() ? '#f97316' : '#d1d5db',
+                        backgroundColor: newComment.trim() ? '#1B8C82' : '#d1d5db',
                         color: 'white',
                         border: 'none',
                         borderRadius: '20px',

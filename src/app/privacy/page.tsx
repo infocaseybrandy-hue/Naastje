@@ -50,7 +50,7 @@ function CookieConsent() {
           onClick={handleAccept}
           style={{
             padding: '12px 32px',
-            background: '#f97316',
+            background: '#1B8C82',
             color: 'white',
             border: 'none',
             borderRadius: '8px',
@@ -185,7 +185,7 @@ export default function PrivacyPage() {
             style={{ 
               display: 'inline-block',
               padding: '12px 24px',
-              backgroundColor: '#f97316',
+              backgroundColor: '#1B8C82',
               color: 'white',
               borderRadius: '8px',
               textDecoration: 'none',
@@ -260,7 +260,7 @@ export default function PrivacyPage() {
                   style={{
                     flex: 1,
                     padding: '12px',
-                    backgroundColor: '#f97316',
+                    backgroundColor: '#1B8C82',
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',

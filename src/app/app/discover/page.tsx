@@ -138,7 +138,7 @@ export default function DiscoverPage() {
         <button 
           onClick={() => router.push('/app/matches')} 
           className="btn-primary"
-          style={{ background: '#f97316', border: 'none' }}
+          style={{ background: '#1B8C82', border: 'none' }}
         >
           Bekijk je matches
         </button>
@@ -213,7 +213,7 @@ export default function DiscoverPage() {
                   style={{
                     flex: 1,
                     padding: '10px',
-                    border: filters.maxDistance === dist ? '2px solid #f97316' : '2px solid #e5e7eb',
+                    border: filters.maxDistance === dist ? '2px solid #1B8C82' : '2px solid #e5e7eb',
                     borderRadius: '10px',
                     backgroundColor: filters.maxDistance === dist ? '#fff7ed' : 'white',
                     color: filters.maxDistance === dist ? '#c2410c' : '#6b7280',
@@ -241,7 +241,7 @@ export default function DiscoverPage() {
                   style={{
                     flex: 1,
                     padding: '10px',
-                    border: filters.genderPreference === opt.value ? '2px solid #f97316' : '2px solid #e5e7eb',
+                    border: filters.genderPreference === opt.value ? '2px solid #1B8C82' : '2px solid #e5e7eb',
                     borderRadius: '10px',
                     backgroundColor: filters.genderPreference === opt.value ? '#fff7ed' : 'white',
                     color: filters.genderPreference === opt.value ? '#c2410c' : '#6b7280',
@@ -264,7 +264,7 @@ export default function DiscoverPage() {
                     type="checkbox"
                     checked={filters.categories.includes(cat.id)}
                     onChange={() => handleCategoryToggle(cat.id)}
-                    style={{ marginRight: '10px', width: '18px', height: '18px', accentColor: '#f97316' }}
+                    style={{ marginRight: '10px', width: '18px', height: '18px', accentColor: '#1B8C82' }}
                   />
                   <span style={{ fontSize: '16px', marginRight: '8px' }}>{cat.icon}</span>
                   <span style={{ fontSize: '14px' }}>{cat.label}</span>
@@ -279,7 +279,7 @@ export default function DiscoverPage() {
               style={{
                 flex: 1,
                 padding: '12px',
-                backgroundColor: '#f97316',
+                backgroundColor: '#1B8C82',
                 color: 'white',
                 border: 'none',
                 borderRadius: '12px',
@@ -332,7 +332,7 @@ export default function DiscoverPage() {
             onClick={handleViewMatches} 
             style={{ 
               backgroundColor: 'white', 
-              color: '#f97316', 
+              color: '#1B8C82', 
               padding: '16px 48px', 
               borderRadius: '30px',
               border: 'none',
@@ -506,8 +506,8 @@ export default function DiscoverPage() {
             width: '64px',
             height: '64px',
             borderRadius: '50%',
-            border: '3px solid #f97316',
-            backgroundColor: '#f97316',
+            border: '3px solid #1B8C82',
+            backgroundColor: '#1B8C82',
             color: 'white',
             fontSize: '28px',
             cursor: 'pointer',

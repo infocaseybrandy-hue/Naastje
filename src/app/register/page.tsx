@@ -51,7 +51,7 @@ function CookieConsent() {
         <button 
           onClick={handleAccept}
           className="btn-primary"
-          style={{ padding: '12px 32px', background: '#f97316', border: 'none' }}
+          style={{ padding: '12px 32px', background: '#1B8C82', border: 'none' }}
         >
           Akkoord
         </button>
@@ -323,7 +323,7 @@ function RegisterForm() {
                 <label key={g.value} style={{ 
                   flex: 1, 
                   padding: '14px 8px', 
-                  border: formData.gender === g.value ? '2px solid #f97316' : '2px solid #e5e7eb', 
+                  border: formData.gender === g.value ? '2px solid #1B8C82' : '2px solid #e5e7eb', 
                   borderRadius: '12px', 
                   textAlign: 'center', 
                   cursor: 'pointer', 
@@ -348,7 +348,7 @@ function RegisterForm() {
               {subtypes.map(sub => (
                 <label key={sub.value} style={{ 
                   padding: '16px', 
-                  border: formData.subtype === sub.value ? '2px solid #f97316' : '2px solid #e5e7eb', 
+                  border: formData.subtype === sub.value ? '2px solid #1B8C82' : '2px solid #e5e7eb', 
                   borderRadius: '12px', 
                   cursor: 'pointer', 
                   backgroundColor: formData.subtype === sub.value ? '#fff7ed' : 'white',
@@ -376,7 +376,7 @@ function RegisterForm() {
             {errors.password && <p className="error-message">{errors.password}</p>}
           </div>
 
-          <button onClick={handleNext} className="btn-primary" style={{ width: '100%', background: '#f97316', border: 'none' }}>Volgende →</button>
+          <button onClick={handleNext} className="btn-primary" style={{ width: '100%', background: '#1B8C82', border: 'none' }}>Volgende →</button>
         </>
       )}
 
@@ -415,7 +415,7 @@ function RegisterForm() {
               {INTERESTS.map(interest => (
                 <label key={interest} style={{ 
                   padding: '8px 14px', 
-                  border: formData.interests.includes(interest) ? '2px solid #f97316' : '2px solid #e5e7eb', 
+                  border: formData.interests.includes(interest) ? '2px solid #1B8C82' : '2px solid #e5e7eb', 
                   borderRadius: '20px', 
                   cursor: 'pointer', 
                   backgroundColor: formData.interests.includes(interest) ? '#fff7ed' : 'white',
@@ -433,8 +433,8 @@ function RegisterForm() {
             </div>
           </div>
 
-          <button onClick={handleNext} className="btn-primary" style={{ width: '100%', background: '#f97316', border: 'none' }}>Volgende →</button>
-          <button onClick={() => setStep(1)} className="btn-ghost" style={{ width: '100%', marginTop: '12px', color: '#f97316' }}>← Terug</button>
+          <button onClick={handleNext} className="btn-primary" style={{ width: '100%', background: '#1B8C82', border: 'none' }}>Volgende →</button>
+          <button onClick={() => setStep(1)} className="btn-ghost" style={{ width: '100%', marginTop: '12px', color: '#1B8C82' }}>← Terug</button>
         </>
       )}
 
@@ -474,7 +474,7 @@ function RegisterForm() {
                             type="checkbox"
                             checked={isTimeSlotSelected(day.key, time.key)}
                             onChange={() => handleTimeSlotToggle(day.key, time.key)}
-                            style={{ width: '20px', height: '20px', cursor: 'pointer', accentColor: '#f97316' }}
+                            style={{ width: '20px', height: '20px', cursor: 'pointer', accentColor: '#1B8C82' }}
                           />
                         </td>
                       ))}
@@ -484,7 +484,7 @@ function RegisterForm() {
                     <td style={{ padding: '12px', fontSize: '13px', fontWeight: 500 }}>⏰ 24u</td>
                     <td colSpan={3} style={{ textAlign: 'center' }}>
                       <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: 'pointer', padding: '8px' }}>
-                        <input type="checkbox" checked={formData.availabilityTimes.includes('24_uur')} onChange={() => handleCheckboxChange('availabilityTimes', '24_uur')} style={{ width: '20px', height: '20px', accentColor: '#f97316' }} />
+                        <input type="checkbox" checked={formData.availabilityTimes.includes('24_uur')} onChange={() => handleCheckboxChange('availabilityTimes', '24_uur')} style={{ width: '20px', height: '20px', accentColor: '#1B8C82' }} />
                         <span style={{ fontSize: '13px' }}>24-uurs beschikbaar</span>
                       </label>
                     </td>
@@ -516,7 +516,7 @@ function RegisterForm() {
                     type="checkbox" 
                     checked={formData.hasPets} 
                     onChange={(e) => setFormData(prev => ({ ...prev, hasPets: e.target.checked }))} 
-                    style={{ width: '22px', height: '22px', accentColor: '#f97316' }} 
+                    style={{ width: '22px', height: '22px', accentColor: '#1B8C82' }} 
                   />
                   <span style={{ fontSize: '22px' }}>🐾</span>
                   <span>Er zijn huisdieren aanwezig</span>
@@ -552,7 +552,7 @@ function RegisterForm() {
                         type="checkbox" 
                         checked={formData.searchTasks.includes(task.id)} 
                         onChange={() => handleCheckboxChange('searchTasks', task.id)} 
-                        style={{ marginRight: '12px', width: '20px', height: '20px', accentColor: '#f97316' }} 
+                        style={{ marginRight: '12px', width: '20px', height: '20px', accentColor: '#1B8C82' }} 
                       />
                       {task.label}
                     </label>
@@ -560,7 +560,7 @@ function RegisterForm() {
                 </div>
                 {taskScrollProgress < 100 && (
                   <div style={{ height: '4px', backgroundColor: '#e5e7eb', borderRadius: '2px', marginTop: '8px' }}>
-                    <div style={{ height: '100%', width: `${taskScrollProgress}%`, backgroundColor: '#f97316', borderRadius: '2px', transition: 'width 0.2s' }} />
+                    <div style={{ height: '100%', width: `${taskScrollProgress}%`, backgroundColor: '#1B8C82', borderRadius: '2px', transition: 'width 0.2s' }} />
                   </div>
                 )}
                 {errors.searchTasks && <p className="error-message">{errors.searchTasks}</p>}
@@ -588,8 +588,8 @@ function RegisterForm() {
             </>
           )}
 
-          <button onClick={handleNext} className="btn-primary" style={{ width: '100%', background: '#f97316', border: 'none' }}>Volgende →</button>
-          <button onClick={() => setStep(2)} className="btn-ghost" style={{ width: '100%', marginTop: '12px', color: '#f97316' }}>← Terug</button>
+          <button onClick={handleNext} className="btn-primary" style={{ width: '100%', background: '#1B8C82', border: 'none' }}>Volgende →</button>
+          <button onClick={() => setStep(2)} className="btn-ghost" style={{ width: '100%', marginTop: '12px', color: '#1B8C82' }}>← Terug</button>
         </>
       )}
 
@@ -605,7 +605,7 @@ function RegisterForm() {
                   type="checkbox" 
                   checked={formData.categories.includes(cat.id)} 
                   onChange={() => handleCheckboxChange('categories', cat.id)} 
-                  style={{ marginRight: '12px', width: '20px', height: '20px', accentColor: '#f97316' }} 
+                  style={{ marginRight: '12px', width: '20px', height: '20px', accentColor: '#1B8C82' }} 
                 />
                 <span style={{ marginRight: '10px', fontSize: '20px' }}>{cat.icon}</span>
                 {cat.label}
@@ -613,8 +613,8 @@ function RegisterForm() {
             ))}
           </div>
 
-          <button onClick={handleSubmit} className="btn-primary" style={{ width: '100%', marginBottom: '12px', background: '#f97316', border: 'none' }}>✅ Profiel aanmaken</button>
-          <button onClick={() => setStep(3)} className="btn-ghost" style={{ width: '100%', color: '#f97316' }}>← Terug</button>
+          <button onClick={handleSubmit} className="btn-primary" style={{ width: '100%', marginBottom: '12px', background: '#1B8C82', border: 'none' }}>✅ Profiel aanmaken</button>
+          <button onClick={() => setStep(3)} className="btn-ghost" style={{ width: '100%', color: '#1B8C82' }}>← Terug</button>
         </>
       )}
     </div>
@@ -645,7 +645,7 @@ export default function RegisterPage() {
                 flex: 1, 
                 height: '8px', 
                 borderRadius: '4px', 
-                backgroundColor: s <= currentStep ? '#f97316' : '#e5e7eb',
+                backgroundColor: s <= currentStep ? '#1B8C82' : '#e5e7eb',
                 transition: 'background-color 0.3s',
               }} 
             />

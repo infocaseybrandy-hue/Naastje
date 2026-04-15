@@ -56,7 +56,7 @@ export default function ChatPage() {
           style={{
             marginTop: '16px',
             padding: '12px 24px',
-            backgroundColor: '#f97316',
+            backgroundColor: '#1B8C82',
             color: 'white',
             border: 'none',
             borderRadius: '12px',
@@ -159,7 +159,7 @@ export default function ChatPage() {
             onClick={() => router.push('/app/upgrade')}
             style={{
               padding: '10px 24px',
-              backgroundColor: '#f97316',
+              backgroundColor: '#1B8C82',
               color: 'white',
               border: 'none',
               borderRadius: '20px',
@@ -216,7 +216,7 @@ export default function ChatPage() {
                     maxWidth: '75%',
                     padding: '12px 16px',
                     borderRadius: '18px',
-                    backgroundColor: isSent ? '#f97316' : 'white',
+                    backgroundColor: isSent ? '#1B8C82' : 'white',
                     color: isSent ? 'white' : '#1f2937',
                     boxShadow: isSent ? 'none' : '0 1px 3px rgba(0,0,0,0.1)',
                     fontSize: '14px',
@@ -263,7 +263,7 @@ export default function ChatPage() {
           disabled={!canChat || !message.trim()}
           style={{
             padding: '12px 20px',
-            backgroundColor: canChat ? '#f97316' : '#9ca3af',
+            backgroundColor: canChat ? '#1B8C82' : '#9ca3af',
             color: 'white',
             border: 'none',
             borderRadius: '24px',
